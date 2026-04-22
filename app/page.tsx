@@ -1,3 +1,5 @@
+import MapView from "@/components/map/MapView";
+
 export default function Home() {
   return (
     <main className="min-h-screen p-6 md:p-8">
@@ -24,16 +26,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-1 items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white/55 p-6">
-            <div className="w-full max-w-md space-y-4 text-center">
-              <div className="mx-auto h-3 w-24 rounded-full bg-black/10" />
-              <div className="grid grid-cols-2 gap-3">
-                <div className="h-24 rounded-xl bg-black/6" />
-                <div className="h-24 rounded-xl bg-black/6" />
-                <div className="col-span-2 h-32 rounded-2xl bg-black/8" />
-              </div>
-              <p className="text-sm text-black/45">Future map area</p>
-            </div>
+          <div className="mt-8 flex flex-1 overflow-hidden rounded-2xl border border-black/15 bg-white/55">
+            <MapView />
           </div>
         </section>
 

@@ -1,19 +1,20 @@
 # Feature: Selected Area Panel
 
 ## Summary
-Show the currently selected Berlin district in the side panel using properties from the selected map feature.
+Show the currently selected Berlin district in the side panel using properties from the selected map feature, while keeping `app/page.tsx` as a server component.
 
 ## Goal
-Connect map selection to the side panel so the interface reflects the user’s current focus.
+Connect map selection to the side panel so the interface reflects the user’s current focus, using a small client-side shell component as the owner of interactive state.
 
 ## User value
 Users can immediately see which district they selected, making the map interaction feel meaningful and grounded.
 
 ## In scope
-- pass selected district data from the map view to the page shell
+- add a small client shell component to own selected district state
+- pass selected district data from the map view to the shell
 - show the selected district name in the side panel
 - show a simple empty state when no district is selected
-- keep the displayed content minimal and static
+- keep displayed content minimal and static
 
 ## Out of scope
 - scoring logic
@@ -44,6 +45,7 @@ Users can immediately see which district they selected, making the map interacti
 
 ## Files allowed to modify
 - components/map/MapView.tsx
+- components/layout/CityLensShell.tsx
 - app/page.tsx
 
 ## Constraints
@@ -51,17 +53,20 @@ Users can immediately see which district they selected, making the map interacti
 - no global state
 - no unrelated refactors
 - keep the implementation minimal and readable
+- keep `app/page.tsx` as a server component
 - do not introduce scoring or derived metrics yet
 
 ## Technical notes
-- lift selected district data to the nearest practical level
-- pass a callback into MapView so page state can reflect the current selection
+- create a small client component to own selected district state
+- `app/page.tsx` should render that client shell component
+- pass a callback into MapView so shell state can reflect the current selection
 - keep the selected payload minimal
 
 ## Acceptance criteria
 - selecting a district updates the side panel with the correct district name
 - no selection shows the default empty state
 - changing selection updates the panel correctly
+- `app/page.tsx` remains a server component
 - no console errors
 - only allowed files are changed
 

@@ -1,0 +1,20 @@
+{
+  "11000012": {
+    "name": "Reinickendorf",
+    "population": 266408,
+    "area_km2": 89.5,
+    "density": 2976
+  },
+  "11000001": {
+    "name": "Mitte",
+    "population": 383360,
+    "area_km2": 39.5,
+    "density": 9700
+  },
+  "11000002": {
+    "name": "Friedrichshain-Kreuzberg",
+    "population": 289787,
+    "area_km2": 20.2,
+    "density": 14350
+  }
+}

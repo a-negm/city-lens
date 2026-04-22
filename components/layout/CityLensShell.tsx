@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import MapView from "@/components/map/MapView";
+import airQualityById from "@/public/data/air-quality.json";
 import districtInfoById from "@/public/data/district-info.json";
 
 type SelectedDistrict = {
@@ -17,7 +18,11 @@ type DistrictInfo = {
   density: number;
 };
 
-type ActiveLayer = "districts" | "density" | "area";
+type AirQualityInfo = {
+  no2: number;
+};
+
+type ActiveLayer = "districts" | "density" | "area" | "airQuality";
 
 type LayerFillColors = Record<ActiveLayer, Record<string, string>>;
 
@@ -26,10 +31,15 @@ const districtInfoEntries = Object.entries(districtInfoById) as [
   string,
   DistrictInfo,
 ][];
+const airQualityEntries = Object.entries(airQualityById) as [
+  string,
+  AirQualityInfo,
+][];
 const layerOptions: { value: ActiveLayer; label: string }[] = [
   { value: "districts", label: "Districts" },
   { value: "density", label: "Density" },
   { value: "area", label: "Area" },
+  { value: "airQuality", label: "Air quality" },
 ];
 
 function getThresholds(values: number[]) {
@@ -66,6 +76,9 @@ const populationThresholds = getThresholds(
 const areaThresholds = getThresholds(
   districtInfoList.map((district) => district.area_km2),
 );
+const airQualityThresholds = getThresholds(
+  airQualityEntries.map(([, airQuality]) => airQuality.no2),
+);
 
 const layerFillColors: LayerFillColors = {
   districts: Object.fromEntries(
@@ -91,6 +104,16 @@ const layerFillColors: LayerFillColors = {
       ]),
     ]),
   ),
+  airQuality: Object.fromEntries(
+    airQualityEntries.map(([districtId, airQuality]) => [
+      districtId,
+      getLevelLabel(airQuality.no2, airQualityThresholds, [
+        "#dcefe3",
+        "#97c5a6",
+        "#4e8f67",
+      ]),
+    ]),
+  ),
 };
 
 export default function CityLensShell() {
@@ -100,6 +123,11 @@ export default function CityLensShell() {
   const districtInfo = selectedDistrict
     ? (districtInfoById[selectedDistrict.id as keyof typeof districtInfoById] as
         | DistrictInfo
+        | undefined)
+    : undefined;
+  const airQualityInfo = selectedDistrict
+    ? (airQualityById[selectedDistrict.id as keyof typeof airQualityById] as
+        | AirQualityInfo
         | undefined)
     : undefined;
   const contextSummary = districtInfo
@@ -121,6 +149,14 @@ export default function CityLensShell() {
         ])}`,
       ]
     : null;
+  const airQualitySummary =
+    activeLayer === "airQuality" && airQualityInfo
+      ? `Air quality: ${getLevelLabel(airQualityInfo.no2, airQualityThresholds, [
+          "Lower NO2",
+          "Medium NO2",
+          "Higher NO2",
+        ])}`
+      : null;
 
   return (
     <main className="min-h-screen p-6 md:p-8">
@@ -212,6 +248,7 @@ export default function CityLensShell() {
                         {contextSummary?.map((label) => (
                           <p key={label}>{label}</p>
                         ))}
+                        {airQualitySummary ? <p>{airQualitySummary}</p> : null}
                       </div>
                       <dl className="space-y-2 text-sm text-black/70">
                         <div className="flex items-center justify-between gap-4">

@@ -3,15 +3,28 @@
 import { useState } from "react";
 
 import MapView from "@/components/map/MapView";
+import districtInfoById from "@/public/data/district-info.json";
 
 type SelectedDistrict = {
   id: string;
   name: string;
 } | null;
 
+type DistrictInfo = {
+  name: string;
+  population: number;
+  area_km2: number;
+  density: number;
+};
+
 export default function CityLensShell() {
   const [selectedDistrict, setSelectedDistrict] =
     useState<SelectedDistrict>(null);
+  const districtInfo = selectedDistrict
+    ? (districtInfoById[selectedDistrict.id as keyof typeof districtInfoById] as
+        | DistrictInfo
+        | undefined)
+    : undefined;
 
   return (
     <main className="min-h-screen p-6 md:p-8">
@@ -60,11 +73,42 @@ export default function CityLensShell() {
                   >
                     Selected district
                   </h2>
-                  <div className="rounded-2xl border border-black/10 bg-white p-4">
-                    <p className="text-sm font-medium text-black">
-                      {selectedDistrict.name}
-                    </p>
-                  </div>
+                  {districtInfo ? (
+                    <div className="space-y-3 rounded-2xl border border-black/10 bg-white p-4">
+                      <p className="text-sm font-medium text-black">
+                        {districtInfo.name}
+                      </p>
+                      <dl className="space-y-2 text-sm text-black/70">
+                        <div className="flex items-center justify-between gap-4">
+                          <dt>Population</dt>
+                          <dd className="font-medium text-black">
+                            {districtInfo.population.toLocaleString("en-US")}
+                          </dd>
+                        </div>
+                        <div className="flex items-center justify-between gap-4">
+                          <dt>Area (km²)</dt>
+                          <dd className="font-medium text-black">
+                            {districtInfo.area_km2}
+                          </dd>
+                        </div>
+                        <div className="flex items-center justify-between gap-4">
+                          <dt>Density (people/km²)</dt>
+                          <dd className="font-medium text-black">
+                            {districtInfo.density.toLocaleString("en-US")}
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  ) : (
+                    <div className="rounded-2xl border border-black/10 bg-white p-4">
+                      <p className="text-sm font-medium text-black">
+                        {selectedDistrict.name}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-black/65">
+                        District info is not available yet.
+                      </p>
+                    </div>
+                  )}
                 </>
               ) : (
                 <>

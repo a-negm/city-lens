@@ -1,20 +1,74 @@
 {
-  "11000012": {
-    "name": "Reinickendorf",
-    "population": 266408,
-    "area_km2": 89.5,
-    "density": 2976
-  },
   "11000001": {
     "name": "Mitte",
-    "population": 383360,
-    "area_km2": 39.5,
-    "density": 9700
+    "population": 397879,
+    "area_km2": 39.47,
+    "density": 10081
   },
   "11000002": {
     "name": "Friedrichshain-Kreuzberg",
-    "population": 289787,
-    "area_km2": 20.2,
-    "density": 14350
+    "population": 292789,
+    "area_km2": 20.16,
+    "density": 14523
+  },
+  "11000003": {
+    "name": "Pankow",
+    "population": 428900,
+    "area_km2": 103.01,
+    "density": 4164
+  },
+  "11000004": {
+    "name": "Charlottenburg-Wilmersdorf",
+    "population": 343625,
+    "area_km2": 64.72,
+    "density": 5309
+  },
+  "11000005": {
+    "name": "Spandau",
+    "population": 261266,
+    "area_km2": 91.91,
+    "density": 2843
+  },
+  "11000006": {
+    "name": "Steglitz-Zehlendorf",
+    "population": 309338,
+    "area_km2": 102.5,
+    "density": 3018
+  },
+  "11000007": {
+    "name": "Tempelhof-Schöneberg",
+    "population": 358835,
+    "area_km2": 53.09,
+    "density": 6759
+  },
+  "11000008": {
+    "name": "Neukölln",
+    "population": 331623,
+    "area_km2": 44.93,
+    "density": 7381
+  },
+  "11000009": {
+    "name": "Treptow-Köpenick",
+    "population": 302686,
+    "area_km2": 168.42,
+    "density": 1797
+  },
+  "11000010": {
+    "name": "Marzahn-Hellersdorf",
+    "population": 296687,
+    "area_km2": 61.74,
+    "density": 4805
+  },
+  "11000011": {
+    "name": "Lichtenberg",
+    "population": 318261,
+    "area_km2": 52.29,
+    "density": 6086
+  },
+  "11000012": {
+    "name": "Reinickendorf",
+    "population": 271755,
+    "area_km2": 89.46,
+    "density": 3038
   }
 }

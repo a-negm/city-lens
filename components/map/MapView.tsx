@@ -12,7 +12,16 @@ const DISTRICTS_FILL_LAYER_ID = "berlin-districts-fill";
 const DISTRICTS_LINE_LAYER_ID = "berlin-districts-line";
 const DISTRICTS_DATA_URL = "/data/berlin-districts.geojson";
 
-export default function MapView() {
+type SelectedDistrict = {
+  id: string;
+  name: string;
+} | null;
+
+type MapViewProps = {
+  onDistrictSelect?: (district: SelectedDistrict) => void;
+};
+
+export default function MapView({ onDistrictSelect }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState<string | null>(
@@ -40,9 +49,17 @@ export default function MapView() {
     ) => {
       const clickedFeature = event.features?.[0];
       const districtId = clickedFeature?.properties?.Schluessel_gesamt;
+      const districtName = clickedFeature?.properties?.Gemeinde_name;
 
       if (districtId !== undefined && districtId !== null) {
         setSelectedDistrictId(String(districtId));
+
+        if (typeof districtName === "string" && districtName.length > 0) {
+          onDistrictSelect?.({
+            id: String(districtId),
+            name: districtName,
+          });
+        }
       }
     };
 
@@ -99,7 +116,7 @@ export default function MapView() {
 
       mapRef.current = null;
     };
-  }, []);
+  }, [onDistrictSelect]);
 
   useEffect(() => {
     const map = mapRef.current;

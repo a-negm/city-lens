@@ -17,7 +17,20 @@ type DistrictInfo = {
   density: number;
 };
 
+type ActiveLayer = "districts" | "density" | "area";
+
+type LayerFillColors = Record<ActiveLayer, Record<string, string>>;
+
 const districtInfoList = Object.values(districtInfoById) as DistrictInfo[];
+const districtInfoEntries = Object.entries(districtInfoById) as [
+  string,
+  DistrictInfo,
+][];
+const layerOptions: { value: ActiveLayer; label: string }[] = [
+  { value: "districts", label: "Districts" },
+  { value: "density", label: "Density" },
+  { value: "area", label: "Area" },
+];
 
 function getThresholds(values: number[]) {
   const sortedValues = [...values].sort((a, b) => a - b);
@@ -54,7 +67,34 @@ const areaThresholds = getThresholds(
   districtInfoList.map((district) => district.area_km2),
 );
 
+const layerFillColors: LayerFillColors = {
+  districts: Object.fromEntries(
+    districtInfoEntries.map(([districtId]) => [districtId, "#6f7c6e"]),
+  ),
+  density: Object.fromEntries(
+    districtInfoEntries.map(([districtId, district]) => [
+      districtId,
+      getLevelLabel(district.density, densityThresholds, [
+        "#d8e2d1",
+        "#8faa80",
+        "#4f6b50",
+      ]),
+    ]),
+  ),
+  area: Object.fromEntries(
+    districtInfoEntries.map(([districtId, district]) => [
+      districtId,
+      getLevelLabel(district.area_km2, areaThresholds, [
+        "#efe3c7",
+        "#d5b679",
+        "#a7722f",
+      ]),
+    ]),
+  ),
+};
+
 export default function CityLensShell() {
+  const [activeLayer, setActiveLayer] = useState<ActiveLayer>("districts");
   const [selectedDistrict, setSelectedDistrict] =
     useState<SelectedDistrict>(null);
   const districtInfo = selectedDistrict
@@ -107,8 +147,39 @@ export default function CityLensShell() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-1 overflow-hidden rounded-2xl border border-black/15 bg-white/55">
-            <MapView onDistrictSelect={setSelectedDistrict} />
+          <div className="mt-8 space-y-3">
+            <div
+              role="group"
+              aria-label="Map layer controls"
+              className="inline-flex rounded-xl border border-black/10 bg-white/80 p-1"
+            >
+              {layerOptions.map((layer) => {
+                const isActive = activeLayer === layer.value;
+
+                return (
+                  <button
+                    key={layer.value}
+                    type="button"
+                    onClick={() => setActiveLayer(layer.value)}
+                    className={`rounded-lg px-3 py-1.5 text-sm transition ${
+                      isActive
+                        ? "bg-black text-white"
+                        : "text-black/65 hover:bg-black/5"
+                    }`}
+                  >
+                    {layer.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-1 overflow-hidden rounded-2xl border border-black/15 bg-white/55">
+              <MapView
+                activeLayer={activeLayer}
+                layerFillColors={layerFillColors}
+                onDistrictSelect={setSelectedDistrict}
+              />
+            </div>
           </div>
         </section>
 

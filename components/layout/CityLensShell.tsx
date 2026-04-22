@@ -17,6 +17,43 @@ type DistrictInfo = {
   density: number;
 };
 
+const districtInfoList = Object.values(districtInfoById) as DistrictInfo[];
+
+function getThresholds(values: number[]) {
+  const sortedValues = [...values].sort((a, b) => a - b);
+
+  return {
+    lowUpper: sortedValues[3],
+    mediumUpper: sortedValues[7],
+  };
+}
+
+function getLevelLabel(
+  value: number,
+  thresholds: { lowUpper: number; mediumUpper: number },
+  labels: [string, string, string],
+) {
+  if (value <= thresholds.lowUpper) {
+    return labels[0];
+  }
+
+  if (value <= thresholds.mediumUpper) {
+    return labels[1];
+  }
+
+  return labels[2];
+}
+
+const densityThresholds = getThresholds(
+  districtInfoList.map((district) => district.density),
+);
+const populationThresholds = getThresholds(
+  districtInfoList.map((district) => district.population),
+);
+const areaThresholds = getThresholds(
+  districtInfoList.map((district) => district.area_km2),
+);
+
 export default function CityLensShell() {
   const [selectedDistrict, setSelectedDistrict] =
     useState<SelectedDistrict>(null);
@@ -25,6 +62,25 @@ export default function CityLensShell() {
         | DistrictInfo
         | undefined)
     : undefined;
+  const contextSummary = districtInfo
+    ? [
+        `Density: ${getLevelLabel(districtInfo.density, densityThresholds, [
+          "Low",
+          "Medium",
+          "High",
+        ])}`,
+        `Population size: ${getLevelLabel(
+          districtInfo.population,
+          populationThresholds,
+          ["Smaller district", "Mid-sized district", "Large district"],
+        )}`,
+        `Area size: ${getLevelLabel(districtInfo.area_km2, areaThresholds, [
+          "Compact",
+          "Medium",
+          "Expansive",
+        ])}`,
+      ]
+    : null;
 
   return (
     <main className="min-h-screen p-6 md:p-8">
@@ -78,6 +134,14 @@ export default function CityLensShell() {
                       <p className="text-sm font-medium text-black">
                         {districtInfo.name}
                       </p>
+                      <div className="space-y-1 text-sm text-black/70">
+                        <p className="font-medium text-black">
+                          Context summary
+                        </p>
+                        {contextSummary?.map((label) => (
+                          <p key={label}>{label}</p>
+                        ))}
+                      </div>
                       <dl className="space-y-2 text-sm text-black/70">
                         <div className="flex items-center justify-between gap-4">
                           <dt>Population</dt>

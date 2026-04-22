@@ -11,17 +11,48 @@ const DISTRICTS_SOURCE_ID = "berlin-districts";
 const DISTRICTS_FILL_LAYER_ID = "berlin-districts-fill";
 const DISTRICTS_LINE_LAYER_ID = "berlin-districts-line";
 const DISTRICTS_DATA_URL = "/data/berlin-districts.geojson";
+const SELECTED_FILL_COLOR = "#1f4d3a";
 
 type SelectedDistrict = {
   id: string;
   name: string;
 } | null;
 
+type ActiveLayer = "districts" | "density" | "area";
+
 type MapViewProps = {
+  activeLayer: ActiveLayer;
+  layerFillColors: Record<ActiveLayer, Record<string, string>>;
   onDistrictSelect?: (district: SelectedDistrict) => void;
 };
 
-export default function MapView({ onDistrictSelect }: MapViewProps) {
+function getFillColorExpression(
+  activeLayer: ActiveLayer,
+  layerFillColors: Record<ActiveLayer, Record<string, string>>,
+  selectedDistrictId: string | null,
+) {
+  const activeFillColors = layerFillColors[activeLayer];
+  const layerColorExpression: (string | ["get", string])[] = ["match", ["get", "Schluessel_gesamt"]];
+
+  Object.entries(activeFillColors).forEach(([districtId, color]) => {
+    layerColorExpression.push(districtId, color);
+  });
+
+  layerColorExpression.push("#6f7c6e");
+
+  return [
+    "case",
+    ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
+    SELECTED_FILL_COLOR,
+    layerColorExpression,
+  ] as const;
+}
+
+export default function MapView({
+  activeLayer,
+  layerFillColors,
+  onDistrictSelect,
+}: MapViewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState<string | null>(
@@ -125,12 +156,11 @@ export default function MapView({ onDistrictSelect }: MapViewProps) {
       return;
     }
 
-    map.setPaintProperty(DISTRICTS_FILL_LAYER_ID, "fill-color", [
-      "case",
-      ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
-      "#4f6b50",
-      "#6f7c6e",
-    ]);
+    map.setPaintProperty(
+      DISTRICTS_FILL_LAYER_ID,
+      "fill-color",
+      getFillColorExpression(activeLayer, layerFillColors, selectedDistrictId),
+    );
 
     map.setPaintProperty(DISTRICTS_FILL_LAYER_ID, "fill-opacity", [
       "case",
@@ -138,7 +168,7 @@ export default function MapView({ onDistrictSelect }: MapViewProps) {
       0.36,
       0.16,
     ]);
-  }, [selectedDistrictId]);
+  }, [activeLayer, layerFillColors, selectedDistrictId]);
 
   return (
     <div

@@ -64,7 +64,7 @@ export default function MapView() {
         source: DISTRICTS_SOURCE_ID,
         paint: {
           "fill-color": "#6f7c6e",
-          "fill-opacity": 0.16,
+          "fill-opacity": 0.28,
         },
       });
 
@@ -77,6 +77,7 @@ export default function MapView() {
           "line-width": 1.25,
         },
       });
+
 
       map.on("click", DISTRICTS_FILL_LAYER_ID, handleDistrictClick);
     };

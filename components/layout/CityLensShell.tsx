@@ -149,14 +149,14 @@ export default function CityLensShell() {
         ])}`,
       ]
     : null;
-  const airQualitySummary =
-    activeLayer === "airQuality" && airQualityInfo
-      ? `Air quality: ${getLevelLabel(airQualityInfo.no2, airQualityThresholds, [
-          "Lower NO2",
-          "Medium NO2",
-          "Higher NO2",
-        ])}`
-      : null;
+  const airQualitySummary = airQualityInfo
+    ? `Air quality: ${getLevelLabel(airQualityInfo.no2, airQualityThresholds, [
+        "Lower NO2",
+        "Medium NO2",
+        "Higher NO2",
+      ])}`
+    : null;
+  const isAirQualityActive = activeLayer === "airQuality";
 
   return (
     <main className="min-h-screen p-6 md:p-8">
@@ -241,15 +241,42 @@ export default function CityLensShell() {
                       <p className="text-sm font-medium text-black">
                         {districtInfo.name}
                       </p>
-                      <div className="space-y-1 text-sm text-black/70">
-                        <p className="font-medium text-black">
+                      <div
+                        className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
+                          isAirQualityActive
+                            ? "border-black/10"
+                            : "border-black/15"
+                        }`}
+                      >
+                        <p
+                          className={`text-black ${
+                            isAirQualityActive ? "font-medium" : "font-semibold"
+                          }`}
+                        >
                           Context summary
                         </p>
                         {contextSummary?.map((label) => (
                           <p key={label}>{label}</p>
                         ))}
-                        {airQualitySummary ? <p>{airQualitySummary}</p> : null}
                       </div>
+                      {airQualitySummary ? (
+                        <div
+                          className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
+                            isAirQualityActive
+                              ? "border-black/15"
+                              : "border-black/10"
+                          }`}
+                        >
+                          <p
+                            className={`text-black ${
+                              isAirQualityActive ? "font-semibold" : "font-medium"
+                            }`}
+                          >
+                            Air quality
+                          </p>
+                          <p>{airQualitySummary}</p>
+                        </div>
+                      ) : null}
                       <dl className="space-y-2 text-sm text-black/70">
                         <div className="flex items-center justify-between gap-4">
                           <dt>Population</dt>

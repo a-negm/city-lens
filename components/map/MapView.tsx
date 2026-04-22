@@ -1,7 +1,7 @@
 "use client";
 
 import "maplibre-gl/dist/maplibre-gl.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 
 const BERLIN_CENTER: [number, number] = [13.405, 52.52];
@@ -15,6 +15,9 @@ const DISTRICTS_DATA_URL = "/data/berlin-districts.geojson";
 export default function MapView() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const [selectedDistrictId, setSelectedDistrictId] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) {
@@ -30,7 +33,20 @@ export default function MapView() {
 
     mapRef.current.addControl(new maplibregl.NavigationControl(), "top-right");
 
-    mapRef.current.on("load", () => {
+    const handleDistrictClick = (
+      event: maplibregl.MapLayerMouseEvent & {
+        features?: maplibregl.MapGeoJSONFeature[];
+      },
+    ) => {
+      const clickedFeature = event.features?.[0];
+      const districtId = clickedFeature?.properties?.Schluessel_gesamt;
+
+      if (districtId !== undefined && districtId !== null) {
+        setSelectedDistrictId(String(districtId));
+      }
+    };
+
+    const handleLoad = () => {
       const map = mapRef.current;
 
       if (!map || map.getSource(DISTRICTS_SOURCE_ID)) {
@@ -61,13 +77,50 @@ export default function MapView() {
           "line-width": 1.25,
         },
       });
-    });
+
+      map.on("click", DISTRICTS_FILL_LAYER_ID, handleDistrictClick);
+    };
+
+    mapRef.current.on("load", handleLoad);
 
     return () => {
-      mapRef.current?.remove();
+      const map = mapRef.current;
+
+      if (map) {
+        map.off("load", handleLoad);
+
+        if (map.getLayer(DISTRICTS_FILL_LAYER_ID)) {
+          map.off("click", DISTRICTS_FILL_LAYER_ID, handleDistrictClick);
+        }
+
+        map.remove();
+      }
+
       mapRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+
+    if (!map || !map.getLayer(DISTRICTS_FILL_LAYER_ID)) {
+      return;
+    }
+
+    map.setPaintProperty(DISTRICTS_FILL_LAYER_ID, "fill-color", [
+      "case",
+      ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
+      "#4f6b50",
+      "#6f7c6e",
+    ]);
+
+    map.setPaintProperty(DISTRICTS_FILL_LAYER_ID, "fill-opacity", [
+      "case",
+      ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
+      0.36,
+      0.16,
+    ]);
+  }, [selectedDistrictId]);
 
   return (
     <div

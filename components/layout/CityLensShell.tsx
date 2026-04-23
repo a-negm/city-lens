@@ -233,31 +233,41 @@ export default function CityLensShell() {
   const isGreenSpaceActive = activeLayer === "greenSpace";
 
   return (
-    <main className="min-h-screen p-6 md:p-8">
-      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-7xl flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm md:min-h-[calc(100vh-4rem)] md:flex-row">
-        <section
-          aria-labelledby="map-shell-title"
-          className="flex min-h-[24rem] flex-1 flex-col justify-between border-b border-black/10 bg-[linear-gradient(180deg,#f6f7f4_0%,#ecefe7_100%)] p-6 md:min-h-0 md:border-b-0 md:border-r md:p-8"
-        >
-          <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">
-              CityLens
-            </p>
-            <div className="space-y-2">
-              <h1
-                id="map-shell-title"
-                className="max-w-xl text-3xl font-medium tracking-tight text-black md:text-4xl"
-              >
-                A calm starting point for a map-first urban health interface.
-              </h1>
-              <p className="max-w-2xl text-sm leading-6 text-black/65 md:text-base">
-                This placeholder marks where the future Berlin map experience
-                will live.
-              </p>
-            </div>
-          </div>
+    <main className="relative min-h-screen overflow-hidden">
+      <div className="absolute inset-0">
+        <MapView
+          activeLayer={activeLayer}
+          layerFillColors={layerFillColors}
+          onDistrictSelect={setSelectedDistrict}
+        />
+      </div>
 
-          <div className="mt-8 space-y-3">
+      <div className="pointer-events-none absolute inset-0 p-6 md:p-8">
+        <div className="absolute left-6 top-6 flex max-w-[min(32rem,calc(100vw-3rem))] flex-col gap-4 md:left-8 md:top-8 md:max-w-xl">
+          <section
+            aria-labelledby="map-shell-title"
+            className="pointer-events-auto rounded-3xl border border-black/10 bg-white/82 p-6 shadow-sm backdrop-blur-sm"
+          >
+            <div className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">
+                CityLens
+              </p>
+              <div className="space-y-2">
+                <h1
+                  id="map-shell-title"
+                  className="max-w-xl text-3xl font-medium tracking-tight text-black md:text-4xl"
+                >
+                  A calm starting point for a map-first urban health interface.
+                </h1>
+                <p className="max-w-2xl text-sm leading-6 text-black/65 md:text-base">
+                  This placeholder marks where the future Berlin map experience
+                  will live.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <div className="pointer-events-auto flex max-w-md flex-col gap-3 rounded-3xl border border-black/10 bg-white/78 p-4 shadow-sm backdrop-blur-sm">
             <LayerControls
               activeLayer={activeLayer}
               layerOptions={layerOptions}
@@ -267,26 +277,20 @@ export default function CityLensShell() {
               title={activeLayerExplanation.title}
               description={activeLayerExplanation.description}
             />
-
-            <div className="flex flex-1 overflow-hidden rounded-2xl border border-black/15 bg-white/55">
-              <MapView
-                activeLayer={activeLayer}
-                layerFillColors={layerFillColors}
-                onDistrictSelect={setSelectedDistrict}
-              />
-            </div>
           </div>
-        </section>
+        </div>
 
-        <SidePanel
-          selectedDistrict={selectedDistrict}
-          districtInfo={districtInfo}
-          contextSummary={contextSummary}
-          airQualitySummary={airQualitySummary}
-          greenSpaceSummary={greenSpaceSummary}
-          isAirQualityActive={isAirQualityActive}
-          isGreenSpaceActive={isGreenSpaceActive}
-        />
+        <div className="absolute inset-x-6 bottom-6 md:inset-x-auto md:bottom-8 md:right-8 md:top-8">
+          <SidePanel
+            selectedDistrict={selectedDistrict}
+            districtInfo={districtInfo}
+            contextSummary={contextSummary}
+            airQualitySummary={airQualitySummary}
+            greenSpaceSummary={greenSpaceSummary}
+            isAirQualityActive={isAirQualityActive}
+            isGreenSpaceActive={isGreenSpaceActive}
+          />
+        </div>
       </div>
     </main>
   );

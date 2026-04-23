@@ -72,4 +72,4 @@ This establishes the core interaction surface of the product. Users can see and 
 - no unnecessary dependencies added
 
 ## Notes
-This feature is strictly about introducing the map surface. All data, overlays, and interactions will be added in later features.
+This feature is strictly about introducing the map surface. All data, overlays, and interactions will be added in later featu

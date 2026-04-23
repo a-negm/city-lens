@@ -11,7 +11,7 @@ const DISTRICTS_SOURCE_ID = "berlin-districts";
 const DISTRICTS_FILL_LAYER_ID = "berlin-districts-fill";
 const DISTRICTS_LINE_LAYER_ID = "berlin-districts-line";
 const DISTRICTS_DATA_URL = "/data/berlin-districts.geojson";
-const SELECTED_FILL_COLOR = "#1f4d3a";
+const SELECTED_FILL_COLOR = "#cbd5e1";
 
 type SelectedDistrict = {
   id: string;
@@ -116,7 +116,7 @@ export default function MapView({
         type: "fill",
         source: DISTRICTS_SOURCE_ID,
         paint: {
-          "fill-color": "#6f7c6e",
+          "fill-color": "#64748b",
           "fill-opacity": 0.28,
         },
       });
@@ -170,8 +170,8 @@ export default function MapView({
     map.setPaintProperty(DISTRICTS_FILL_LAYER_ID, "fill-opacity", [
       "case",
       ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
-      0.36,
-      0.16,
+      0.75,
+      0.45,
     ]);
   }, [activeLayer, layerFillColors, selectedDistrictId]);
 

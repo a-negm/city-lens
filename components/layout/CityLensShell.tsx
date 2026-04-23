@@ -138,9 +138,9 @@ const layerFillColors: LayerFillColors = {
     districtInfoEntries.map(([districtId, district]) => [
       districtId,
       getLevelLabel(district.density, densityThresholds, [
-        "#d8e2d1",
-        "#8faa80",
-        "#4f6b50",
+        "#d8b4fe",
+        "#8b5cf6",
+        "#581c87",
       ]),
     ]),
   ),
@@ -148,9 +148,9 @@ const layerFillColors: LayerFillColors = {
     districtInfoEntries.map(([districtId, district]) => [
       districtId,
       getLevelLabel(district.area_km2, areaThresholds, [
-        "#efe3c7",
-        "#d5b679",
-        "#a7722f",
+        "#fcd34d",
+        "#f59e0b",
+        "#92400e",
       ]),
     ]),
   ),
@@ -158,9 +158,9 @@ const layerFillColors: LayerFillColors = {
     airQualityEntries.map(([districtId, airQuality]) => [
       districtId,
       getLevelLabel(airQuality.no2, airQualityThresholds, [
-        "#dcefe3",
-        "#97c5a6",
-        "#4e8f67",
+        "#fca5a5",
+        "#ef4444",
+        "#991b1b",
       ]),
     ]),
   ),
@@ -168,9 +168,9 @@ const layerFillColors: LayerFillColors = {
     greenSpaceEntries.map(([districtId, greenSpace]) => [
       districtId,
       getLevelLabel(greenSpace.green_space, greenSpaceThresholds, [
-        "#e4efdc",
+        "#86efac",
         "#9fc78f",
-        "#5c8f51",
+        "#166534",
       ]),
     ]),
   ),

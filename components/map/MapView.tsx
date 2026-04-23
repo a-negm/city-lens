@@ -73,9 +73,15 @@ export default function MapView({
 }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const districtClickHandledRef = useRef(false);
+  const selectedDistrictIdRef = useRef<string | null>(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState<string | null>(
     null,
   );
+
+  useEffect(() => {
+    selectedDistrictIdRef.current = selectedDistrictId;
+  }, [selectedDistrictId]);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) {
@@ -101,15 +107,33 @@ export default function MapView({
       const districtName = clickedFeature?.properties?.Gemeinde_name;
 
       if (districtId !== undefined && districtId !== null) {
-        setSelectedDistrictId(String(districtId));
+        const nextDistrictId = String(districtId);
+        districtClickHandledRef.current = true;
+
+        if (selectedDistrictIdRef.current === nextDistrictId) {
+          setSelectedDistrictId(null);
+          onDistrictSelect?.(null);
+          return;
+        }
 
         if (typeof districtName === "string" && districtName.length > 0) {
+          setSelectedDistrictId(nextDistrictId);
           onDistrictSelect?.({
-            id: String(districtId),
+            id: nextDistrictId,
             name: districtName,
           });
         }
       }
+    };
+
+    const handleMapClick = () => {
+      if (districtClickHandledRef.current) {
+        districtClickHandledRef.current = false;
+        return;
+      }
+
+      setSelectedDistrictId(null);
+      onDistrictSelect?.(null);
     };
 
     const handleLoad = () => {
@@ -151,6 +175,7 @@ export default function MapView({
 
 
       map.on("click", DISTRICTS_FILL_LAYER_ID, handleDistrictClick);
+      map.on("click", handleMapClick);
     };
 
     mapRef.current.on("load", handleLoad);
@@ -164,6 +189,8 @@ export default function MapView({
         if (map.getLayer(DISTRICTS_FILL_LAYER_ID)) {
           map.off("click", DISTRICTS_FILL_LAYER_ID, handleDistrictClick);
         }
+
+        map.off("click", handleMapClick);
 
         map.remove();
       }

@@ -35,7 +35,7 @@ export default function SidePanel({
       className="pointer-events-auto flex max-h-[calc(100vh-3rem)] w-full flex-col justify-between overflow-auto rounded-3xl border border-black/10 bg-stone-50/95 p-6 shadow-sm backdrop-blur-sm md:h-full md:max-h-none md:w-[24rem] md:p-8"
     >
       <div className="space-y-6">
-        <div className="space-y-2">
+        <div className="space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">
             Side Panel
           </p>
@@ -48,13 +48,13 @@ export default function SidePanel({
                 Selected district
               </h2>
               {districtInfo ? (
-                <div className="space-y-3 rounded-2xl border border-black/10 bg-white p-4">
+                <div className="space-y-4">
                   <p className="text-sm font-medium text-black">
                     {districtInfo.name}
                   </p>
                   <div
-                    className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
-                      isAirQualityActive ? "border-black/10" : "border-black/15"
+                    className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
+                      isAirQualityActive ? "border-black/15" : "border-black/10"
                     }`}
                   >
                     <p
@@ -68,7 +68,7 @@ export default function SidePanel({
                   </div>
                   {airQualitySummary ? (
                     <div
-                      className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
+                      className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
                         isAirQualityActive ? "border-black/15" : "border-black/10"
                       }`}
                     >
@@ -84,7 +84,7 @@ export default function SidePanel({
                   ) : null}
                   {greenSpaceSummary ? (
                     <div
-                      className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
+                      className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
                         isGreenSpaceActive ? "border-black/15" : "border-black/10"
                       }`}
                     >
@@ -98,7 +98,7 @@ export default function SidePanel({
                       <p>{greenSpaceSummary}</p>
                     </div>
                   ) : null}
-                  <dl className="space-y-2 text-sm text-black/70">
+                  <dl className="space-y-2 border-t border-black/10 pt-4 text-sm text-black/70">
                     <div className="flex items-center justify-between gap-4">
                       <dt>Population</dt>
                       <dd className="font-medium text-black">
@@ -120,35 +120,19 @@ export default function SidePanel({
                   </dl>
                 </div>
               ) : (
-                <div className="rounded-2xl border border-black/10 bg-white p-4">
+                <div className="space-y-2">
                   <p className="text-sm font-medium text-black">
                     {selectedDistrict.name}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-black/65">
+                  <p className="text-sm leading-6 text-black/65">
                     District info is not available yet.
                   </p>
                 </div>
               )}
             </>
-          ) : (
-            <>
-              <h2
-                id="panel-shell-title"
-                className="text-xl font-medium tracking-tight text-black"
-              >
-                No district selected
-              </h2>
-              <p className="text-sm leading-6 text-black/65">
-                Select a district on the map to see its name here.
-              </p>
-            </>
-          )}
+          ) : null}
         </div>
       </div>
-
-      <p className="mt-8 text-xs leading-5 text-black/45">
-        Static shell only. No live data, interactivity, or scoring yet.
-      </p>
     </aside>
   );
 }

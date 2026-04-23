@@ -24,7 +24,7 @@ export default function LayerControls({
     <div
       role="group"
       aria-label="Map layer controls"
-      className="inline-flex rounded-xl border border-black/10 bg-white/80 p-1"
+      className="inline-flex rounded-full bg-black/5 p-1"
     >
       {layerOptions.map((layer) => {
         const isActive = activeLayer === layer.value;

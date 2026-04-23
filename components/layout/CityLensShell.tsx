@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import LayerControls from "@/components/layout/LayerControls";
 import LayerExplanation from "@/components/layout/LayerExplanation";
@@ -85,6 +85,7 @@ const defaultLayerExplanation = {
   title: "Map overview",
   description: "Select a layer to color districts by a specific urban signal.",
 };
+const PANEL_TRANSITION_MS = 180;
 
 function getThresholds(values: number[]) {
   const sortedValues = [...values].sort((a, b) => a - b);
@@ -177,21 +178,46 @@ export default function CityLensShell() {
   const [activeLayer, setActiveLayer] = useState<ActiveLayer | null>(null);
   const [selectedDistrict, setSelectedDistrict] =
     useState<SelectedDistrict>(null);
+  const [renderedDistrict, setRenderedDistrict] =
+    useState<SelectedDistrict>(null);
+  const [isPanelMounted, setIsPanelMounted] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof window.setTimeout> | undefined;
+
+    if (selectedDistrict) {
+      setRenderedDistrict(selectedDistrict);
+      setIsPanelMounted(true);
+    } else if (renderedDistrict) {
+      timeoutId = window.setTimeout(() => {
+        setIsPanelMounted(false);
+        setRenderedDistrict(null);
+      }, PANEL_TRANSITION_MS);
+    }
+
+    return () => {
+      if (timeoutId !== undefined) {
+        window.clearTimeout(timeoutId);
+      }
+    };
+  }, [selectedDistrict, renderedDistrict]);
+
+  const panelDistrict = selectedDistrict ?? renderedDistrict;
   const activeLayerExplanation = activeLayer
     ? layerExplanations[activeLayer]
     : defaultLayerExplanation;
-  const districtInfo = selectedDistrict
-    ? (districtInfoById[selectedDistrict.id as keyof typeof districtInfoById] as
+  const districtInfo = panelDistrict
+    ? (districtInfoById[panelDistrict.id as keyof typeof districtInfoById] as
         | DistrictInfo
         | undefined)
     : undefined;
-  const airQualityInfo = selectedDistrict
-    ? (airQualityById[selectedDistrict.id as keyof typeof airQualityById] as
+  const airQualityInfo = panelDistrict
+    ? (airQualityById[panelDistrict.id as keyof typeof airQualityById] as
         | AirQualityInfo
         | undefined)
     : undefined;
-  const greenSpaceInfo = selectedDistrict
-    ? (greenSpaceById[selectedDistrict.id as keyof typeof greenSpaceById] as
+  const greenSpaceInfo = panelDistrict
+    ? (greenSpaceById[panelDistrict.id as keyof typeof greenSpaceById] as
         | GreenSpaceInfo
         | undefined)
     : undefined;
@@ -269,17 +295,25 @@ export default function CityLensShell() {
           </div>
         </section>
 
-        {selectedDistrict ? (
+        {isPanelMounted ? (
           <div className="absolute inset-x-6 bottom-6 md:inset-x-auto md:right-8 md:top-8">
-            <SidePanel
-              selectedDistrict={selectedDistrict}
-              districtInfo={districtInfo}
-              contextSummary={contextSummary}
-              airQualitySummary={airQualitySummary}
-              greenSpaceSummary={greenSpaceSummary}
-              isAirQualityActive={isAirQualityActive}
-              isGreenSpaceActive={isGreenSpaceActive}
-            />
+            <div
+  className={`transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+    selectedDistrict
+      ? "translate-y-0 opacity-100 md:translate-x-0"
+      : "pointer-events-none translate-y-4 opacity-0 md:translate-x-2 md:translate-y-0"
+  }`}
+>
+              <SidePanel
+                selectedDistrict={panelDistrict}
+                districtInfo={districtInfo}
+                contextSummary={contextSummary}
+                airQualitySummary={airQualitySummary}
+                greenSpaceSummary={greenSpaceSummary}
+                isAirQualityActive={isAirQualityActive}
+                isGreenSpaceActive={isGreenSpaceActive}
+              />
+            </div>
           </div>
         ) : null}
       </div>

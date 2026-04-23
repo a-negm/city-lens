@@ -5,6 +5,7 @@ import { useState } from "react";
 import MapView from "@/components/map/MapView";
 import airQualityById from "@/public/data/air-quality.json";
 import districtInfoById from "@/public/data/district-info.json";
+import greenSpaceById from "@/public/data/green-space.json";
 
 type SelectedDistrict = {
   id: string;
@@ -22,7 +23,16 @@ type AirQualityInfo = {
   no2: number;
 };
 
-type ActiveLayer = "districts" | "density" | "area" | "airQuality";
+type GreenSpaceInfo = {
+  green_space: number;
+};
+
+type ActiveLayer =
+  | "districts"
+  | "density"
+  | "area"
+  | "airQuality"
+  | "greenSpace";
 
 type LayerFillColors = Record<ActiveLayer, Record<string, string>>;
 
@@ -35,11 +45,16 @@ const airQualityEntries = Object.entries(airQualityById) as [
   string,
   AirQualityInfo,
 ][];
+const greenSpaceEntries = Object.entries(greenSpaceById) as [
+  string,
+  GreenSpaceInfo,
+][];
 const layerOptions: { value: ActiveLayer; label: string }[] = [
   { value: "districts", label: "Districts" },
   { value: "density", label: "Density" },
   { value: "area", label: "Area" },
   { value: "airQuality", label: "Air quality" },
+  { value: "greenSpace", label: "Green space" },
 ];
 const layerExplanations: Record<
   ActiveLayer,
@@ -63,6 +78,11 @@ const layerExplanations: Record<
     title: "Air quality",
     description:
       "Shows relative NO2 levels, where higher values mean higher traffic-related exposure.",
+  },
+  greenSpace: {
+    title: "Green space",
+    description:
+      "Shows relative green space availability across Berlin districts.",
   },
 };
 
@@ -103,6 +123,9 @@ const areaThresholds = getThresholds(
 const airQualityThresholds = getThresholds(
   airQualityEntries.map(([, airQuality]) => airQuality.no2),
 );
+const greenSpaceThresholds = getThresholds(
+  greenSpaceEntries.map(([, greenSpace]) => greenSpace.green_space),
+);
 
 const layerFillColors: LayerFillColors = {
   districts: Object.fromEntries(
@@ -138,6 +161,16 @@ const layerFillColors: LayerFillColors = {
       ]),
     ]),
   ),
+  greenSpace: Object.fromEntries(
+    greenSpaceEntries.map(([districtId, greenSpace]) => [
+      districtId,
+      getLevelLabel(greenSpace.green_space, greenSpaceThresholds, [
+        "#e4efdc",
+        "#9fc78f",
+        "#5c8f51",
+      ]),
+    ]),
+  ),
 };
 
 export default function CityLensShell() {
@@ -153,6 +186,11 @@ export default function CityLensShell() {
   const airQualityInfo = selectedDistrict
     ? (airQualityById[selectedDistrict.id as keyof typeof airQualityById] as
         | AirQualityInfo
+        | undefined)
+    : undefined;
+  const greenSpaceInfo = selectedDistrict
+    ? (greenSpaceById[selectedDistrict.id as keyof typeof greenSpaceById] as
+        | GreenSpaceInfo
         | undefined)
     : undefined;
   const contextSummary = districtInfo
@@ -181,7 +219,15 @@ export default function CityLensShell() {
         "Higher NO2",
       ])}`
     : null;
+  const greenSpaceSummary = greenSpaceInfo
+    ? `Green space: ${getLevelLabel(
+        greenSpaceInfo.green_space,
+        greenSpaceThresholds,
+        ["Lower", "Medium", "Higher"],
+      )}`
+    : null;
   const isAirQualityActive = activeLayer === "airQuality";
+  const isGreenSpaceActive = activeLayer === "greenSpace";
 
   return (
     <main className="min-h-screen p-6 md:p-8">
@@ -308,6 +354,26 @@ export default function CityLensShell() {
                             Air quality
                           </p>
                           <p>{airQualitySummary}</p>
+                        </div>
+                      ) : null}
+                      {greenSpaceSummary ? (
+                        <div
+                          className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
+                            isGreenSpaceActive
+                              ? "border-black/15"
+                              : "border-black/10"
+                          }`}
+                        >
+                          <p
+                            className={`text-black ${
+                              isGreenSpaceActive
+                                ? "font-semibold"
+                                : "font-medium"
+                            }`}
+                          >
+                            Green space
+                          </p>
+                          <p>{greenSpaceSummary}</p>
                         </div>
                       ) : null}
                       <dl className="space-y-2 text-sm text-black/70">

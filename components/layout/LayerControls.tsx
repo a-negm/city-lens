@@ -1,5 +1,4 @@
 type ActiveLayer =
-  | "districts"
   | "density"
   | "area"
   | "airQuality"
@@ -11,7 +10,7 @@ type LayerOption = {
 };
 
 type LayerControlsProps = {
-  activeLayer: ActiveLayer;
+  activeLayer: ActiveLayer | null;
   layerOptions: LayerOption[];
   onLayerChange: (layer: ActiveLayer) => void;
 };
@@ -25,7 +24,7 @@ export default function LayerControls({
     <div
       role="group"
       aria-label="Map layer controls"
-      className="inline-flex rounded-xl border border-black/10 bg-white/80 p-1"
+      className="inline-flex gap-1.5 w-fit rounded-full bg-black/5 p-1"
     >
       {layerOptions.map((layer) => {
         const isActive = activeLayer === layer.value;
@@ -35,7 +34,7 @@ export default function LayerControls({
             key={layer.value}
             type="button"
             onClick={() => onLayerChange(layer.value)}
-            className={`rounded-lg px-3 py-1.5 text-sm transition ${
+            className={`shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-sm transition ${
               isActive ? "bg-black text-white" : "text-black/65 hover:bg-black/5"
             }`}
           >

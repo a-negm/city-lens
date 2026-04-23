@@ -19,24 +19,27 @@ type SelectedDistrict = {
 } | null;
 
 type ActiveLayer =
-  | "districts"
   | "density"
   | "area"
   | "airQuality"
   | "greenSpace";
 
 type MapViewProps = {
-  activeLayer: ActiveLayer;
+  activeLayer: ActiveLayer | null;
+  defaultFillColors: Record<string, string>;
   layerFillColors: Record<ActiveLayer, Record<string, string>>;
   onDistrictSelect?: (district: SelectedDistrict) => void;
 };
 
 function getFillColorExpression(
-  activeLayer: ActiveLayer,
+  activeLayer: ActiveLayer | null,
+  defaultFillColors: Record<string, string>,
   layerFillColors: Record<ActiveLayer, Record<string, string>>,
   selectedDistrictId: string | null,
 ) {
-  const activeFillColors = layerFillColors[activeLayer];
+  const activeFillColors = activeLayer
+    ? layerFillColors[activeLayer]
+    : defaultFillColors;
   const layerColorExpression: (string | ["get", string])[] = ["match", ["get", "Schluessel_gesamt"]];
 
   Object.entries(activeFillColors).forEach(([districtId, color]) => {
@@ -53,8 +56,18 @@ function getFillColorExpression(
   ] as const;
 }
 
+function getFillOpacityExpression(selectedDistrictId: string | null) {
+  return [
+    "case",
+    ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
+    0.75,
+    0.45,
+  ] as const;
+}
+
 export default function MapView({
   activeLayer,
+  defaultFillColors,
   layerFillColors,
   onDistrictSelect,
 }: MapViewProps) {
@@ -116,8 +129,13 @@ export default function MapView({
         type: "fill",
         source: DISTRICTS_SOURCE_ID,
         paint: {
-          "fill-color": "#64748b",
-          "fill-opacity": 0.28,
+          "fill-color": getFillColorExpression(
+            activeLayer,
+            defaultFillColors,
+            layerFillColors,
+            selectedDistrictId,
+          ),
+          "fill-opacity": getFillOpacityExpression(selectedDistrictId),
         },
       });
 
@@ -164,16 +182,20 @@ export default function MapView({
     map.setPaintProperty(
       DISTRICTS_FILL_LAYER_ID,
       "fill-color",
-      getFillColorExpression(activeLayer, layerFillColors, selectedDistrictId),
+      getFillColorExpression(
+        activeLayer,
+        defaultFillColors,
+        layerFillColors,
+        selectedDistrictId,
+      ),
     );
 
-    map.setPaintProperty(DISTRICTS_FILL_LAYER_ID, "fill-opacity", [
-      "case",
-      ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
-      0.75,
-      0.45,
-    ]);
-  }, [activeLayer, layerFillColors, selectedDistrictId]);
+    map.setPaintProperty(
+      DISTRICTS_FILL_LAYER_ID,
+      "fill-opacity",
+      getFillOpacityExpression(selectedDistrictId),
+    );
+  }, [activeLayer, defaultFillColors, layerFillColors, selectedDistrictId]);
 
   return (
     <div

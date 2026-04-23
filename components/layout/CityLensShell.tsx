@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+import LayerControls from "@/components/layout/LayerControls";
+import LayerExplanation from "@/components/layout/LayerExplanation";
+import SidePanel from "@/components/layout/SidePanel";
 import MapView from "@/components/map/MapView";
 import airQualityById from "@/public/data/air-quality.json";
 import districtInfoById from "@/public/data/district-info.json";
@@ -135,9 +138,9 @@ const layerFillColors: LayerFillColors = {
     districtInfoEntries.map(([districtId, district]) => [
       districtId,
       getLevelLabel(district.density, densityThresholds, [
-        "#d8e2d1",
-        "#8faa80",
-        "#4f6b50",
+        "#d8b4fe",
+        "#8b5cf6",
+        "#581c87",
       ]),
     ]),
   ),
@@ -145,9 +148,9 @@ const layerFillColors: LayerFillColors = {
     districtInfoEntries.map(([districtId, district]) => [
       districtId,
       getLevelLabel(district.area_km2, areaThresholds, [
-        "#efe3c7",
-        "#d5b679",
-        "#a7722f",
+        "#fcd34d",
+        "#f59e0b",
+        "#92400e",
       ]),
     ]),
   ),
@@ -155,9 +158,9 @@ const layerFillColors: LayerFillColors = {
     airQualityEntries.map(([districtId, airQuality]) => [
       districtId,
       getLevelLabel(airQuality.no2, airQualityThresholds, [
-        "#dcefe3",
-        "#97c5a6",
-        "#4e8f67",
+        "#fca5a5",
+        "#ef4444",
+        "#991b1b",
       ]),
     ]),
   ),
@@ -165,9 +168,9 @@ const layerFillColors: LayerFillColors = {
     greenSpaceEntries.map(([districtId, greenSpace]) => [
       districtId,
       getLevelLabel(greenSpace.green_space, greenSpaceThresholds, [
-        "#e4efdc",
+        "#86efac",
         "#9fc78f",
-        "#5c8f51",
+        "#166534",
       ]),
     ]),
   ),
@@ -255,38 +258,15 @@ export default function CityLensShell() {
           </div>
 
           <div className="mt-8 space-y-3">
-            <div
-              role="group"
-              aria-label="Map layer controls"
-              className="inline-flex rounded-xl border border-black/10 bg-white/80 p-1"
-            >
-              {layerOptions.map((layer) => {
-                const isActive = activeLayer === layer.value;
-
-                return (
-                  <button
-                    key={layer.value}
-                    type="button"
-                    onClick={() => setActiveLayer(layer.value)}
-                    className={`rounded-lg px-3 py-1.5 text-sm transition ${
-                      isActive
-                        ? "bg-black text-white"
-                        : "text-black/65 hover:bg-black/5"
-                    }`}
-                  >
-                    {layer.label}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="max-w-md rounded-xl border border-black/10 bg-white/70 px-3 py-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-black/50">
-                {activeLayerExplanation.title}
-              </p>
-              <p className="mt-1 text-sm leading-6 text-black/70">
-                {activeLayerExplanation.description}
-              </p>
-            </div>
+            <LayerControls
+              activeLayer={activeLayer}
+              layerOptions={layerOptions}
+              onLayerChange={setActiveLayer}
+            />
+            <LayerExplanation
+              title={activeLayerExplanation.title}
+              description={activeLayerExplanation.description}
+            />
 
             <div className="flex flex-1 overflow-hidden rounded-2xl border border-black/15 bg-white/55">
               <MapView
@@ -298,136 +278,15 @@ export default function CityLensShell() {
           </div>
         </section>
 
-        <aside
-          aria-labelledby="panel-shell-title"
-          className="flex w-full flex-col justify-between bg-stone-50 p-6 md:max-w-sm md:p-8"
-        >
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">
-                Side Panel
-              </p>
-              {selectedDistrict ? (
-                <>
-                  <h2
-                    id="panel-shell-title"
-                    className="text-xl font-medium tracking-tight text-black"
-                  >
-                    Selected district
-                  </h2>
-                  {districtInfo ? (
-                    <div className="space-y-3 rounded-2xl border border-black/10 bg-white p-4">
-                      <p className="text-sm font-medium text-black">
-                        {districtInfo.name}
-                      </p>
-                      <div
-                        className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
-                          isAirQualityActive
-                            ? "border-black/10"
-                            : "border-black/15"
-                        }`}
-                      >
-                        <p
-                          className={`text-black ${
-                            isAirQualityActive ? "font-medium" : "font-semibold"
-                          }`}
-                        >
-                          Context summary
-                        </p>
-                        {contextSummary?.map((label) => (
-                          <p key={label}>{label}</p>
-                        ))}
-                      </div>
-                      {airQualitySummary ? (
-                        <div
-                          className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
-                            isAirQualityActive
-                              ? "border-black/15"
-                              : "border-black/10"
-                          }`}
-                        >
-                          <p
-                            className={`text-black ${
-                              isAirQualityActive ? "font-semibold" : "font-medium"
-                            }`}
-                          >
-                            Air quality
-                          </p>
-                          <p>{airQualitySummary}</p>
-                        </div>
-                      ) : null}
-                      {greenSpaceSummary ? (
-                        <div
-                          className={`space-y-1 rounded-xl border p-3 text-sm text-black/70 ${
-                            isGreenSpaceActive
-                              ? "border-black/15"
-                              : "border-black/10"
-                          }`}
-                        >
-                          <p
-                            className={`text-black ${
-                              isGreenSpaceActive
-                                ? "font-semibold"
-                                : "font-medium"
-                            }`}
-                          >
-                            Green space
-                          </p>
-                          <p>{greenSpaceSummary}</p>
-                        </div>
-                      ) : null}
-                      <dl className="space-y-2 text-sm text-black/70">
-                        <div className="flex items-center justify-between gap-4">
-                          <dt>Population</dt>
-                          <dd className="font-medium text-black">
-                            {districtInfo.population.toLocaleString("en-US")}
-                          </dd>
-                        </div>
-                        <div className="flex items-center justify-between gap-4">
-                          <dt>Area (km²)</dt>
-                          <dd className="font-medium text-black">
-                            {districtInfo.area_km2}
-                          </dd>
-                        </div>
-                        <div className="flex items-center justify-between gap-4">
-                          <dt>Density (people/km²)</dt>
-                          <dd className="font-medium text-black">
-                            {districtInfo.density.toLocaleString("en-US")}
-                          </dd>
-                        </div>
-                      </dl>
-                    </div>
-                  ) : (
-                    <div className="rounded-2xl border border-black/10 bg-white p-4">
-                      <p className="text-sm font-medium text-black">
-                        {selectedDistrict.name}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-black/65">
-                        District info is not available yet.
-                      </p>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <>
-                  <h2
-                    id="panel-shell-title"
-                    className="text-xl font-medium tracking-tight text-black"
-                  >
-                    No district selected
-                  </h2>
-                  <p className="text-sm leading-6 text-black/65">
-                    Select a district on the map to see its name here.
-                  </p>
-                </>
-              )}
-            </div>
-          </div>
-
-          <p className="mt-8 text-xs leading-5 text-black/45">
-            Static shell only. No live data, interactivity, or scoring yet.
-          </p>
-        </aside>
+        <SidePanel
+          selectedDistrict={selectedDistrict}
+          districtInfo={districtInfo}
+          contextSummary={contextSummary}
+          airQualitySummary={airQualitySummary}
+          greenSpaceSummary={greenSpaceSummary}
+          isAirQualityActive={isAirQualityActive}
+          isGreenSpaceActive={isGreenSpaceActive}
+        />
       </div>
     </main>
   );

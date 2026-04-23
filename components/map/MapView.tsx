@@ -6,7 +6,7 @@ import maplibregl from "maplibre-gl";
 
 const BERLIN_CENTER: [number, number] = [13.405, 52.52];
 const DEFAULT_ZOOM = 10;
-const STYLE_URL = "https://demotiles.maplibre.org/style.json";
+const STYLE_URL = "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
 const DISTRICTS_SOURCE_ID = "berlin-districts";
 const DISTRICTS_FILL_LAYER_ID = "berlin-districts-fill";
 const DISTRICTS_LINE_LAYER_ID = "berlin-districts-line";

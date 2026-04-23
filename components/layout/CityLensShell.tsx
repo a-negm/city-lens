@@ -243,44 +243,33 @@ export default function CityLensShell() {
       </div>
 
       <div className="pointer-events-none absolute inset-0 p-6 md:p-8">
-        <div className="absolute left-6 top-6 flex max-w-[min(32rem,calc(100vw-3rem))] flex-col gap-4 md:left-8 md:top-8 md:max-w-xl">
-          <section
-            aria-labelledby="map-shell-title"
-            className="pointer-events-auto rounded-3xl border border-black/10 bg-white/82 p-6 shadow-sm backdrop-blur-sm"
+        <section
+          aria-labelledby="map-shell-title"
+          className="pointer-events-auto absolute left-6 top-6 flex w-[24rem] max-w-[calc(100vw-3rem)] flex-col gap-3 rounded-3xl border border-black/10 bg-white/82 p-4 shadow-sm backdrop-blur-sm md:left-8 md:top-8"
+        >
+          <p
+            id="map-shell-title"
+            className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45"
           >
-            <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">
-                CityLens
-              </p>
-              <div className="space-y-2">
-                <h1
-                  id="map-shell-title"
-                  className="max-w-xl text-3xl font-medium tracking-tight text-black md:text-4xl"
-                >
-                  A calm starting point for a map-first urban health interface.
-                </h1>
-                <p className="max-w-2xl text-sm leading-6 text-black/65 md:text-base">
-                  This placeholder marks where the future Berlin map experience
-                  will live.
-                </p>
-              </div>
-            </div>
-          </section>
+            CityLens
+          </p>
 
-          <div className="pointer-events-auto flex max-w-md flex-col gap-3 rounded-3xl border border-black/10 bg-white/78 p-4 shadow-sm backdrop-blur-sm">
+          <div className="flex flex-col gap-3">
             <LayerControls
               activeLayer={activeLayer}
               layerOptions={layerOptions}
               onLayerChange={setActiveLayer}
             />
-            <LayerExplanation
-              title={activeLayerExplanation.title}
-              description={activeLayerExplanation.description}
-            />
+            <div className="border-t border-black/10 pt-3">
+              <LayerExplanation
+                title={activeLayerExplanation.title}
+                description={activeLayerExplanation.description}
+              />
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div className="absolute inset-x-6 bottom-6 md:inset-x-auto md:bottom-8 md:right-8 md:top-8">
+        <div className="absolute inset-x-6 bottom-6 md:inset-x-auto md:right-8 md:top-8">
           <SidePanel
             selectedDistrict={selectedDistrict}
             districtInfo={districtInfo}

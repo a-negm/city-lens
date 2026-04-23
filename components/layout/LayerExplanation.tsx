@@ -8,7 +8,7 @@ export default function LayerExplanation({
   description,
 }: LayerExplanationProps) {
   return (
-    <div className="max-w-md border-t border-black/10 pt-3">
+    <div className="min-h-[4.75rem]">
       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-black/50">
         {title}
       </p>

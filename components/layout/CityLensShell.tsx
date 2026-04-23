@@ -269,17 +269,19 @@ export default function CityLensShell() {
           </div>
         </section>
 
-        <div className="absolute inset-x-6 bottom-6 md:inset-x-auto md:right-8 md:top-8">
-          <SidePanel
-            selectedDistrict={selectedDistrict}
-            districtInfo={districtInfo}
-            contextSummary={contextSummary}
-            airQualitySummary={airQualitySummary}
-            greenSpaceSummary={greenSpaceSummary}
-            isAirQualityActive={isAirQualityActive}
-            isGreenSpaceActive={isGreenSpaceActive}
-          />
-        </div>
+        {selectedDistrict ? (
+          <div className="absolute inset-x-6 bottom-6 md:inset-x-auto md:right-8 md:top-8">
+            <SidePanel
+              selectedDistrict={selectedDistrict}
+              districtInfo={districtInfo}
+              contextSummary={contextSummary}
+              airQualitySummary={airQualitySummary}
+              greenSpaceSummary={greenSpaceSummary}
+              isAirQualityActive={isAirQualityActive}
+              isGreenSpaceActive={isGreenSpaceActive}
+            />
+          </div>
+        ) : null}
       </div>
     </main>
   );

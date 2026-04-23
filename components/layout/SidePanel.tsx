@@ -32,7 +32,7 @@ export default function SidePanel({
   return (
     <aside
       aria-labelledby="panel-shell-title"
-      className="flex w-full flex-col justify-between bg-stone-50 p-6 md:max-w-sm md:p-8"
+      className="pointer-events-auto flex max-h-[calc(100vh-3rem)] w-full flex-col justify-between overflow-auto rounded-3xl border border-black/10 bg-stone-50/95 p-6 shadow-sm backdrop-blur-sm md:h-full md:max-h-none md:w-[24rem] md:p-8"
     >
       <div className="space-y-6">
         <div className="space-y-2">

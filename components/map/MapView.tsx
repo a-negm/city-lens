@@ -179,7 +179,7 @@ export default function MapView({
     <div
       ref={containerRef}
       aria-label="Interactive map of Berlin"
-      className="h-full min-h-[24rem] w-full"
+      className="h-full w-full"
     />
   );
 }

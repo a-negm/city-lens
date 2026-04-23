@@ -41,6 +41,30 @@ const layerOptions: { value: ActiveLayer; label: string }[] = [
   { value: "area", label: "Area" },
   { value: "airQuality", label: "Air quality" },
 ];
+const layerExplanations: Record<
+  ActiveLayer,
+  { title: string; description: string }
+> = {
+  districts: {
+    title: "District boundaries",
+    description:
+      "Shows district boundaries for place-based exploration across Berlin.",
+  },
+  density: {
+    title: "Population density",
+    description:
+      "Higher values indicate more people living per square kilometer.",
+  },
+  area: {
+    title: "District area",
+    description: "Larger districts cover more physical area.",
+  },
+  airQuality: {
+    title: "Air quality",
+    description:
+      "Shows relative NO2 levels, where higher values mean higher traffic-related exposure.",
+  },
+};
 
 function getThresholds(values: number[]) {
   const sortedValues = [...values].sort((a, b) => a - b);
@@ -120,6 +144,7 @@ export default function CityLensShell() {
   const [activeLayer, setActiveLayer] = useState<ActiveLayer>("districts");
   const [selectedDistrict, setSelectedDistrict] =
     useState<SelectedDistrict>(null);
+  const activeLayerExplanation = layerExplanations[activeLayer];
   const districtInfo = selectedDistrict
     ? (districtInfoById[selectedDistrict.id as keyof typeof districtInfoById] as
         | DistrictInfo
@@ -207,6 +232,14 @@ export default function CityLensShell() {
                   </button>
                 );
               })}
+            </div>
+            <div className="max-w-md rounded-xl border border-black/10 bg-white/70 px-3 py-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-black/50">
+                {activeLayerExplanation.title}
+              </p>
+              <p className="mt-1 text-sm leading-6 text-black/70">
+                {activeLayerExplanation.description}
+              </p>
             </div>
 
             <div className="flex flex-1 overflow-hidden rounded-2xl border border-black/15 bg-white/55">

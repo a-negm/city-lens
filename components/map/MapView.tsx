@@ -18,7 +18,12 @@ type SelectedDistrict = {
   name: string;
 } | null;
 
-type ActiveLayer = "districts" | "density" | "area" | "airQuality";
+type ActiveLayer =
+  | "districts"
+  | "density"
+  | "area"
+  | "airQuality"
+  | "greenSpace";
 
 type MapViewProps = {
   activeLayer: ActiveLayer;

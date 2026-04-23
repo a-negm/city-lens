@@ -1,5 +1,4 @@
 type ActiveLayer =
-  | "districts"
   | "density"
   | "area"
   | "airQuality"
@@ -11,7 +10,7 @@ type LayerOption = {
 };
 
 type LayerControlsProps = {
-  activeLayer: ActiveLayer;
+  activeLayer: ActiveLayer | null;
   layerOptions: LayerOption[];
   onLayerChange: (layer: ActiveLayer) => void;
 };

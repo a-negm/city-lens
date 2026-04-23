@@ -31,7 +31,6 @@ type GreenSpaceInfo = {
 };
 
 type ActiveLayer =
-  | "districts"
   | "density"
   | "area"
   | "airQuality"
@@ -53,7 +52,6 @@ const greenSpaceEntries = Object.entries(greenSpaceById) as [
   GreenSpaceInfo,
 ][];
 const layerOptions: { value: ActiveLayer; label: string }[] = [
-  { value: "districts", label: "Districts" },
   { value: "density", label: "Density" },
   { value: "area", label: "Area" },
   { value: "airQuality", label: "Air quality" },
@@ -63,11 +61,6 @@ const layerExplanations: Record<
   ActiveLayer,
   { title: string; description: string }
 > = {
-  districts: {
-    title: "District boundaries",
-    description:
-      "Shows district boundaries for place-based exploration across Berlin.",
-  },
   density: {
     title: "Population density",
     description:
@@ -87,6 +80,10 @@ const layerExplanations: Record<
     description:
       "Shows relative green space availability across Berlin districts.",
   },
+};
+const defaultLayerExplanation = {
+  title: "Map overview",
+  description: "Select a layer to color districts by a specific urban signal.",
 };
 
 function getThresholds(values: number[]) {
@@ -129,11 +126,11 @@ const airQualityThresholds = getThresholds(
 const greenSpaceThresholds = getThresholds(
   greenSpaceEntries.map(([, greenSpace]) => greenSpace.green_space),
 );
+const defaultLayerFillColors = Object.fromEntries(
+  districtInfoEntries.map(([districtId]) => [districtId, "#6f7c6e"]),
+);
 
 const layerFillColors: LayerFillColors = {
-  districts: Object.fromEntries(
-    districtInfoEntries.map(([districtId]) => [districtId, "#6f7c6e"]),
-  ),
   density: Object.fromEntries(
     districtInfoEntries.map(([districtId, district]) => [
       districtId,
@@ -177,10 +174,12 @@ const layerFillColors: LayerFillColors = {
 };
 
 export default function CityLensShell() {
-  const [activeLayer, setActiveLayer] = useState<ActiveLayer>("districts");
+  const [activeLayer, setActiveLayer] = useState<ActiveLayer | null>(null);
   const [selectedDistrict, setSelectedDistrict] =
     useState<SelectedDistrict>(null);
-  const activeLayerExplanation = layerExplanations[activeLayer];
+  const activeLayerExplanation = activeLayer
+    ? layerExplanations[activeLayer]
+    : defaultLayerExplanation;
   const districtInfo = selectedDistrict
     ? (districtInfoById[selectedDistrict.id as keyof typeof districtInfoById] as
         | DistrictInfo
@@ -237,6 +236,7 @@ export default function CityLensShell() {
       <div className="absolute inset-0">
         <MapView
           activeLayer={activeLayer}
+          defaultFillColors={defaultLayerFillColors}
           layerFillColors={layerFillColors}
           onDistrictSelect={setSelectedDistrict}
         />

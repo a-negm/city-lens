@@ -16,6 +16,8 @@ type SidePanelProps = {
   contextSummary: string[] | null;
   airQualitySummary: string | null;
   greenSpaceSummary: string | null;
+  areaSummary: string | null;
+  activeLayer: "density" | "area" | "airQuality" | "greenSpace" | null;
   isAirQualityActive: boolean;
   isGreenSpaceActive: boolean;
 };
@@ -26,12 +28,15 @@ export default function SidePanel({
   contextSummary,
   airQualitySummary,
   greenSpaceSummary,
+  areaSummary,
+  activeLayer,
   isAirQualityActive,
   isGreenSpaceActive,
 }: SidePanelProps) {
   const airQualityValue = airQualitySummary?.replace(/^Air quality:\s*/, "") ?? "Not available";
   const greenSpaceValue =
     greenSpaceSummary?.replace(/^Green space:\s*/, "") ?? "Not available";
+  const areaValue = areaSummary?.replace(/^Area size:\s*/, "") ?? "Not available";
   const densityValue =
     contextSummary?.find((label) => label.startsWith("Density:"))?.replace(
       /^Density:\s*/,
@@ -75,6 +80,40 @@ export default function SidePanel({
         : urbanPressureScore <= 4
           ? "Balanced conditions"
           : "Higher pressure";
+  const insightText =
+    activeLayer === "airQuality"
+      ? airQualityValue === "Lower NO2"
+        ? "Lower NO2 levels suggest less traffic-related air quality pressure here."
+        : airQualityValue === "Medium NO2"
+          ? "NO2 levels sit in a middle range compared with other districts."
+          : airQualityValue === "Higher NO2"
+            ? "Higher NO2 levels suggest stronger traffic-related air quality pressure in this district."
+            : null
+      : activeLayer === "greenSpace"
+        ? greenSpaceValue === "Higher"
+          ? "Higher green space availability suggests more environmental relief in this district."
+          : greenSpaceValue === "Medium"
+            ? "Green space availability sits in a middle range compared with other districts."
+            : greenSpaceValue === "Lower"
+              ? "Lower green space availability means less environmental relief compared with greener districts."
+              : null
+        : activeLayer === "density"
+          ? densityValue === "Low"
+            ? "Lower density suggests a less intense urban pattern."
+            : densityValue === "Medium"
+              ? "Density sits in a middle range compared with other districts."
+              : densityValue === "High"
+                ? "Higher density can indicate stronger urban intensity and less spatial relief."
+                : null
+          : activeLayer === "area"
+            ? areaValue === "Compact"
+              ? "This district is more compact in size."
+              : areaValue === "Medium"
+                ? "This district sits in a mid-range size band."
+                : areaValue === "Expansive"
+                  ? "This district covers a larger area."
+                  : null
+            : null;
 
   return (
     <aside
@@ -104,6 +143,19 @@ export default function SidePanel({
                         </p>
                       </div>
                     ) : null}
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        insightText
+                          ? "max-h-24 translate-y-0 opacity-100"
+                          : "max-h-0 translate-y-1 opacity-0"
+                      }`}
+                    >
+                      {insightText ? (
+                        <p className="text-sm leading-6 text-slate-200">
+                          {insightText}
+                        </p>
+                      ) : null}
+                    </div>
                     <div
                       className={`flex items-center justify-between gap-4 border-t pt-4 text-sm ${
                         isAirQualityActive

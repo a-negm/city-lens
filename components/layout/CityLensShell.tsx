@@ -254,6 +254,13 @@ export default function CityLensShell() {
         ["Lower", "Medium", "Higher"],
       )}`
     : null;
+  const areaSummary = districtInfo
+    ? `Area size: ${getLevelLabel(districtInfo.area_km2, areaThresholds, [
+        "Compact",
+        "Medium",
+        "Expansive",
+      ])}`
+    : null;
   const isAirQualityActive = activeLayer === "airQuality";
   const isGreenSpaceActive = activeLayer === "greenSpace";
 
@@ -310,6 +317,8 @@ export default function CityLensShell() {
                 contextSummary={contextSummary}
                 airQualitySummary={airQualitySummary}
                 greenSpaceSummary={greenSpaceSummary}
+                areaSummary={areaSummary}
+                activeLayer={activeLayer}
                 isAirQualityActive={isAirQualityActive}
                 isGreenSpaceActive={isGreenSpaceActive}
               />

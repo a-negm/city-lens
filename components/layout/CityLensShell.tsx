@@ -57,27 +57,32 @@ const layerOptions: { value: ActiveLayer; label: string }[] = [
 ];
 const layerExplanations: Record<
   ActiveLayer,
-  { title: string; description: string }
+  { title: string; items: { color: string; label: string }[] }
 > = {
   density: {
     title: "Population density",
-    description:
-      "Higher values indicate more people living per square kilometer.",
+    items: [
+      { color: "#d8b4fe", label: "Low" },
+      { color: "#8b5cf6", label: "Medium" },
+      { color: "#581c87", label: "High" },
+    ],
   },
   airQuality: {
     title: "Air quality",
-    description:
-      "Shows relative NO2 levels, where higher values mean higher traffic-related exposure.",
+    items: [
+      { color: "#fca5a5", label: "Lower NO2" },
+      { color: "#ef4444", label: "Medium NO2" },
+      { color: "#991b1b", label: "Higher NO2" },
+    ],
   },
   greenSpace: {
     title: "Green space",
-    description:
-      "Shows relative green space availability across Berlin districts.",
+    items: [
+      { color: "#86efac", label: "Lower" },
+      { color: "#9fc78f", label: "Medium" },
+      { color: "#166534", label: "Higher" },
+    ],
   },
-};
-const defaultLayerExplanation = {
-  title: "Map overview",
-  description: "Select a layer to color districts by a specific urban signal.",
 };
 const PANEL_TRANSITION_MS = 180;
 
@@ -190,9 +195,7 @@ export default function CityLensShell() {
   }, [selectedDistrict, renderedDistrict]);
 
   const panelDistrict = selectedDistrict ?? renderedDistrict;
-  const activeLayerExplanation = activeLayer
-    ? layerExplanations[activeLayer]
-    : defaultLayerExplanation;
+  const activeLayerExplanation = activeLayer ? layerExplanations[activeLayer] : null;
   const districtInfo = panelDistrict
     ? (districtInfoById[panelDistrict.id as keyof typeof districtInfoById] as
         | DistrictInfo
@@ -267,6 +270,9 @@ export default function CityLensShell() {
           >
             CityLens
           </p>
+          <p className="text-sm leading-6 text-slate-300">
+            Select a layer to color districts by a specific urban signal.
+          </p>
 
           <div className="flex flex-col gap-3">
             <LayerControls
@@ -274,19 +280,23 @@ export default function CityLensShell() {
               layerOptions={layerOptions}
               onLayerChange={setActiveLayer}
             />
-            <div className="border-t border-white/10 pt-3">
-              <LayerExplanation
-                title={activeLayerExplanation.title}
-                description={activeLayerExplanation.description}
-              />
-            </div>
+            {activeLayerExplanation ? (
+              <div>
+                <div className="border-t border-white/10 pt-3">
+                  <LayerExplanation
+                    title={activeLayerExplanation.title}
+                    legendItems={activeLayerExplanation.items}
+                  />
+                </div>
+              </div>
+            ) : null}
           </div>
         </section>
 
         {isPanelMounted ? (
           <div className="absolute inset-x-6 bottom-6 md:inset-x-auto md:right-8 md:top-8">
             <div
-  className={`transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+  className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
     selectedDistrict
       ? "translate-y-0 opacity-100 md:translate-x-0"
       : "pointer-events-none translate-y-4 opacity-0 md:translate-x-2 md:translate-y-0"

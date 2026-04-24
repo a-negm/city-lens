@@ -1,6 +1,5 @@
 type ActiveLayer =
   | "density"
-  | "area"
   | "airQuality"
   | "greenSpace";
 

@@ -20,7 +20,6 @@ type SelectedDistrict = {
 
 type ActiveLayer =
   | "density"
-  | "area"
   | "airQuality"
   | "greenSpace";
 
@@ -29,6 +28,7 @@ type MapViewProps = {
   defaultFillColors: Record<string, string>;
   layerFillColors: Record<ActiveLayer, Record<string, string>>;
   onDistrictSelect?: (district: SelectedDistrict) => void;
+  onResetLayer?: () => void;
 };
 
 function getFillColorExpression(
@@ -70,14 +70,25 @@ export default function MapView({
   defaultFillColors,
   layerFillColors,
   onDistrictSelect,
+  onResetLayer,
 }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const districtClickHandledRef = useRef(false);
+  const onDistrictSelectRef = useRef(onDistrictSelect);
+  const onResetLayerRef = useRef(onResetLayer);
   const selectedDistrictIdRef = useRef<string | null>(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState<string | null>(
     null,
   );
+
+  useEffect(() => {
+    onDistrictSelectRef.current = onDistrictSelect;
+  }, [onDistrictSelect]);
+
+  useEffect(() => {
+    onResetLayerRef.current = onResetLayer;
+  }, [onResetLayer]);
 
   useEffect(() => {
     selectedDistrictIdRef.current = selectedDistrictId;
@@ -112,13 +123,13 @@ export default function MapView({
 
         if (selectedDistrictIdRef.current === nextDistrictId) {
           setSelectedDistrictId(null);
-          onDistrictSelect?.(null);
+          onDistrictSelectRef.current?.(null);
           return;
         }
 
         if (typeof districtName === "string" && districtName.length > 0) {
           setSelectedDistrictId(nextDistrictId);
-          onDistrictSelect?.({
+          onDistrictSelectRef.current?.({
             id: nextDistrictId,
             name: districtName,
           });
@@ -133,7 +144,8 @@ export default function MapView({
       }
 
       setSelectedDistrictId(null);
-      onDistrictSelect?.(null);
+      onDistrictSelectRef.current?.(null);
+      onResetLayerRef.current?.();
     };
 
     const handleLoad = () => {
@@ -197,7 +209,7 @@ export default function MapView({
 
       mapRef.current = null;
     };
-  }, [onDistrictSelect]);
+  }, []);
 
   useEffect(() => {
     const map = mapRef.current;

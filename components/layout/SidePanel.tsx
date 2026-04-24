@@ -16,8 +16,7 @@ type SidePanelProps = {
   contextSummary: string[] | null;
   airQualitySummary: string | null;
   greenSpaceSummary: string | null;
-  areaSummary: string | null;
-  activeLayer: "density" | "area" | "airQuality" | "greenSpace" | null;
+  activeLayer: "density" | "airQuality" | "greenSpace" | null;
   isAirQualityActive: boolean;
   isGreenSpaceActive: boolean;
 };
@@ -28,7 +27,6 @@ export default function SidePanel({
   contextSummary,
   airQualitySummary,
   greenSpaceSummary,
-  areaSummary,
   activeLayer,
   isAirQualityActive,
   isGreenSpaceActive,
@@ -36,7 +34,6 @@ export default function SidePanel({
   const airQualityValue = airQualitySummary?.replace(/^Air quality:\s*/, "") ?? "Not available";
   const greenSpaceValue =
     greenSpaceSummary?.replace(/^Green space:\s*/, "") ?? "Not available";
-  const areaValue = areaSummary?.replace(/^Area size:\s*/, "") ?? "Not available";
   const densityValue =
     contextSummary?.find((label) => label.startsWith("Density:"))?.replace(
       /^Density:\s*/,
@@ -105,15 +102,7 @@ export default function SidePanel({
               : densityValue === "High"
                 ? "Higher density can indicate stronger urban intensity and less spatial relief."
                 : null
-          : activeLayer === "area"
-            ? areaValue === "Compact"
-              ? "This district is more compact in size."
-              : areaValue === "Medium"
-                ? "This district sits in a mid-range size band."
-                : areaValue === "Expansive"
-                  ? "This district covers a larger area."
-                  : null
-            : null;
+          : null;
 
   return (
     <aside

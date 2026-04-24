@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import LayerControls from "@/components/layout/LayerControls";
 import LayerExplanation from "@/components/layout/LayerExplanation";
@@ -32,7 +32,6 @@ type GreenSpaceInfo = {
 
 type ActiveLayer =
   | "density"
-  | "area"
   | "airQuality"
   | "greenSpace";
 
@@ -53,7 +52,6 @@ const greenSpaceEntries = Object.entries(greenSpaceById) as [
 ][];
 const layerOptions: { value: ActiveLayer; label: string }[] = [
   { value: "density", label: "Density" },
-  { value: "area", label: "Area" },
   { value: "airQuality", label: "Air quality" },
   { value: "greenSpace", label: "Green space" },
 ];
@@ -65,10 +63,6 @@ const layerExplanations: Record<
     title: "Population density",
     description:
       "Higher values indicate more people living per square kilometer.",
-  },
-  area: {
-    title: "District area",
-    description: "Larger districts cover more physical area.",
   },
   airQuality: {
     title: "Air quality",
@@ -142,16 +136,6 @@ const layerFillColors: LayerFillColors = {
       ]),
     ]),
   ),
-  area: Object.fromEntries(
-    districtInfoEntries.map(([districtId, district]) => [
-      districtId,
-      getLevelLabel(district.area_km2, areaThresholds, [
-        "#fcd34d",
-        "#f59e0b",
-        "#92400e",
-      ]),
-    ]),
-  ),
   airQuality: Object.fromEntries(
     airQualityEntries.map(([districtId, airQuality]) => [
       districtId,
@@ -181,6 +165,9 @@ export default function CityLensShell() {
   const [renderedDistrict, setRenderedDistrict] =
     useState<SelectedDistrict>(null);
   const [isPanelMounted, setIsPanelMounted] = useState(false);
+  const handleResetLayer = useCallback(() => {
+    setActiveLayer(null);
+  }, []);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof window.setTimeout> | undefined;
@@ -254,13 +241,6 @@ export default function CityLensShell() {
         ["Lower", "Medium", "Higher"],
       )}`
     : null;
-  const areaSummary = districtInfo
-    ? `Area size: ${getLevelLabel(districtInfo.area_km2, areaThresholds, [
-        "Compact",
-        "Medium",
-        "Expansive",
-      ])}`
-    : null;
   const isAirQualityActive = activeLayer === "airQuality";
   const isGreenSpaceActive = activeLayer === "greenSpace";
 
@@ -272,6 +252,7 @@ export default function CityLensShell() {
           defaultFillColors={defaultLayerFillColors}
           layerFillColors={layerFillColors}
           onDistrictSelect={setSelectedDistrict}
+          onResetLayer={handleResetLayer}
         />
       </div>
 
@@ -317,7 +298,6 @@ export default function CityLensShell() {
                 contextSummary={contextSummary}
                 airQualitySummary={airQualitySummary}
                 greenSpaceSummary={greenSpaceSummary}
-                areaSummary={areaSummary}
                 activeLayer={activeLayer}
                 isAirQualityActive={isAirQualityActive}
                 isGreenSpaceActive={isGreenSpaceActive}

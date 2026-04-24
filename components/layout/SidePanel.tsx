@@ -37,6 +37,44 @@ export default function SidePanel({
       /^Density:\s*/,
       "",
     ) ?? "Not available";
+  const airQualityScore =
+    airQualityValue === "Lower NO2"
+      ? 0
+      : airQualityValue === "Medium NO2"
+        ? 1
+        : airQualityValue === "Higher NO2"
+          ? 2
+          : null;
+  const greenSpaceScore =
+    greenSpaceValue === "Higher"
+      ? 0
+      : greenSpaceValue === "Medium"
+        ? 1
+        : greenSpaceValue === "Lower"
+          ? 2
+          : null;
+  const densityScore =
+    densityValue === "Low"
+      ? 0
+      : densityValue === "Medium"
+        ? 1
+        : densityValue === "High"
+          ? 2
+          : null;
+  const urbanPressureScore =
+    airQualityScore !== null &&
+    greenSpaceScore !== null &&
+    densityScore !== null
+      ? airQualityScore + greenSpaceScore + densityScore
+      : null;
+  const urbanPressureValue =
+    urbanPressureScore === null
+      ? null
+      : urbanPressureScore <= 2
+        ? "Lower pressure"
+        : urbanPressureScore <= 4
+          ? "Balanced conditions"
+          : "Higher pressure";
 
   return (
     <aside
@@ -56,6 +94,16 @@ export default function SidePanel({
                     >
                       {districtInfo.name}
                     </h2>
+                    {urbanPressureValue ? (
+                      <div className="space-y-1 border-t border-white/10 pt-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                          Urban pressure
+                        </p>
+                        <p className="text-base font-medium text-white">
+                          {urbanPressureValue}
+                        </p>
+                      </div>
+                    ) : null}
                     <div
                       className={`flex items-center justify-between gap-4 border-t pt-4 text-sm ${
                         isAirQualityActive

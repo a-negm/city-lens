@@ -37,36 +37,16 @@ export default function SidePanel({
       <div className="rounded-3xl border border-black/10 bg-white/96 p-6 shadow-sm backdrop-blur-sm md:p-8">
         <div className="space-y-6">
           <div className="space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">
-              Side Panel
-            </p>
             {selectedDistrict ? (
               <>
-                <h2
-                  id="panel-shell-title"
-                  className="text-xl font-medium tracking-tight text-black"
-                >
-                  Selected district
-                </h2>
                 {districtInfo ? (
                   <div className="space-y-4">
-                    <p className="text-sm font-medium text-black">
-                      {districtInfo.name}
-                    </p>
-                    <div
-                      className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
-                        isAirQualityActive ? "border-black/15" : "border-black/10"
-                      }`}
+                    <h2
+                      id="panel-shell-title"
+                      className="text-sm font-medium text-black"
                     >
-                      <p
-                        className={`text-black ${
-                          isAirQualityActive ? "font-medium" : "font-semibold"
-                        }`}
-                      >
-                        Context summary
-                      </p>
-                      {contextSummary?.map((label) => <p key={label}>{label}</p>)}
-                    </div>
+                      {districtInfo.name}
+                    </h2>
                     {airQualitySummary ? (
                       <div
                         className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
@@ -99,6 +79,20 @@ export default function SidePanel({
                         <p>{greenSpaceSummary}</p>
                       </div>
                     ) : null}
+                    <div
+                      className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
+                        isAirQualityActive ? "border-black/15" : "border-black/10"
+                      }`}
+                    >
+                      <p
+                        className={`text-black ${
+                          isAirQualityActive ? "font-medium" : "font-semibold"
+                        }`}
+                      >
+                        Context summary
+                      </p>
+                      {contextSummary?.map((label) => <p key={label}>{label}</p>)}
+                    </div>
                     <dl className="space-y-2 border-t border-black/10 pt-4 text-sm text-black/70">
                       <div className="flex items-center justify-between gap-4">
                         <dt>Population</dt>
@@ -122,9 +116,12 @@ export default function SidePanel({
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    <p className="text-sm font-medium text-black">
+                    <h2
+                      id="panel-shell-title"
+                      className="text-sm font-medium text-black"
+                    >
                       {selectedDistrict.name}
-                    </p>
+                    </h2>
                     <p className="text-sm leading-6 text-black/65">
                       District info is not available yet.
                     </p>

@@ -24,7 +24,7 @@ export default function LayerControls({
     <div
       role="group"
       aria-label="Map layer controls"
-      className="inline-flex gap-1.5 w-fit rounded-full bg-black/5 p-1"
+      className="inline-flex w-fit gap-1.5 rounded-full bg-slate-800/90 p-1 ring-1 ring-inset ring-white/10"
     >
       {layerOptions.map((layer) => {
         const isActive = activeLayer === layer.value;
@@ -35,7 +35,9 @@ export default function LayerControls({
             type="button"
             onClick={() => onLayerChange(layer.value)}
             className={`shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-sm transition ${
-              isActive ? "bg-black text-white" : "text-black/65 hover:bg-black/5"
+              isActive
+                ? "bg-white text-slate-950"
+                : "text-slate-300 hover:bg-white/5 hover:text-white"
             }`}
           >
             {layer.label}

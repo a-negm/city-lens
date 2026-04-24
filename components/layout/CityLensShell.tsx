@@ -271,11 +271,11 @@ export default function CityLensShell() {
       <div className="pointer-events-none absolute inset-0 p-6 md:p-8">
         <section
           aria-labelledby="map-shell-title"
-          className="pointer-events-auto absolute left-6 top-6 flex w-[24rem] max-w-[calc(100vw-3rem)] flex-col gap-3 rounded-3xl border border-black/10 bg-white/82 p-4 shadow-sm backdrop-blur-sm md:left-8 md:top-8"
+          className="pointer-events-auto absolute left-6 top-6 flex w-[24rem] max-w-[calc(100vw-3rem)] flex-col gap-3 rounded-3xl border border-slate-700/45 bg-slate-900/88 p-4 text-white shadow-[0_12px_36px_rgba(2,6,23,0.28)] backdrop-blur-sm md:left-8 md:top-8"
         >
           <p
             id="map-shell-title"
-            className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45"
+            className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400"
           >
             CityLens
           </p>
@@ -286,7 +286,7 @@ export default function CityLensShell() {
               layerOptions={layerOptions}
               onLayerChange={setActiveLayer}
             />
-            <div className="border-t border-black/10 pt-3">
+            <div className="border-t border-white/10 pt-3">
               <LayerExplanation
                 title={activeLayerExplanation.title}
                 description={activeLayerExplanation.description}

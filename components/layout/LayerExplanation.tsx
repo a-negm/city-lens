@@ -9,10 +9,10 @@ export default function LayerExplanation({
 }: LayerExplanationProps) {
   return (
     <div className="min-h-[4.75rem]">
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-black/50">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
         {title}
       </p>
-      <p className="mt-1 text-sm leading-6 text-black/70">{description}</p>
+      <p className="mt-1 text-sm leading-6 text-slate-300">{description}</p>
     </div>
   );
 }

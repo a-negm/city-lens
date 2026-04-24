@@ -29,100 +29,79 @@ export default function SidePanel({
   isAirQualityActive,
   isGreenSpaceActive,
 }: SidePanelProps) {
+  const airQualityValue = airQualitySummary?.replace(/^Air quality:\s*/, "") ?? "Not available";
+  const greenSpaceValue =
+    greenSpaceSummary?.replace(/^Green space:\s*/, "") ?? "Not available";
+  const densityValue =
+    contextSummary?.find((label) => label.startsWith("Density:"))?.replace(
+      /^Density:\s*/,
+      "",
+    ) ?? "Not available";
+
   return (
     <aside
       aria-labelledby="panel-shell-title"
       className="pointer-events-auto w-full md:w-[24rem]"
     >
-      <div className="rounded-3xl border border-black/10 bg-white/96 p-6 shadow-sm backdrop-blur-sm md:p-8">
+      <div className="rounded-3xl border border-transparent bg-transparent p-0 shadow-none md:p-0">
         <div className="space-y-6">
           <div className="space-y-4">
             {selectedDistrict ? (
               <>
                 {districtInfo ? (
-                  <div className="space-y-4">
+                  <div className="space-y-5 rounded-3xl border border-slate-700/45 bg-slate-900/92 p-5 text-white shadow-[0_12px_36px_rgba(2,6,23,0.28)] backdrop-blur-sm">
                     <h2
                       id="panel-shell-title"
-                      className="text-sm font-medium text-black"
+                      className="text-lg font-medium tracking-tight text-white"
                     >
                       {districtInfo.name}
                     </h2>
-                    {airQualitySummary ? (
-                      <div
-                        className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
-                          isAirQualityActive ? "border-black/15" : "border-black/10"
-                        }`}
-                      >
-                        <p
-                          className={`text-black ${
-                            isAirQualityActive ? "font-semibold" : "font-medium"
-                          }`}
-                        >
-                          Air quality
-                        </p>
-                        <p>{airQualitySummary}</p>
-                      </div>
-                    ) : null}
-                    {greenSpaceSummary ? (
-                      <div
-                        className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
-                          isGreenSpaceActive ? "border-black/15" : "border-black/10"
-                        }`}
-                      >
-                        <p
-                          className={`text-black ${
-                            isGreenSpaceActive ? "font-semibold" : "font-medium"
-                          }`}
-                        >
-                          Green space
-                        </p>
-                        <p>{greenSpaceSummary}</p>
-                      </div>
-                    ) : null}
                     <div
-                      className={`space-y-1 border-t pt-4 text-sm text-black/70 ${
-                        isAirQualityActive ? "border-black/15" : "border-black/10"
+                      className={`flex items-center justify-between gap-4 border-t pt-4 text-sm ${
+                        isAirQualityActive
+                          ? "border-white/20 text-white"
+                          : "border-white/10 text-slate-300"
                       }`}
                     >
                       <p
-                        className={`text-black ${
-                          isAirQualityActive ? "font-medium" : "font-semibold"
+                        className={`${
+                          isAirQualityActive ? "font-semibold text-white" : "font-medium"
                         }`}
                       >
-                        Context summary
+                        Air quality
                       </p>
-                      {contextSummary?.map((label) => <p key={label}>{label}</p>)}
+                      <p>{airQualityValue}</p>
                     </div>
-                    <dl className="space-y-2 border-t border-black/10 pt-4 text-sm text-black/70">
-                      <div className="flex items-center justify-between gap-4">
-                        <dt>Population</dt>
-                        <dd className="font-medium text-black">
-                          {districtInfo.population.toLocaleString("en-US")}
-                        </dd>
-                      </div>
-                      <div className="flex items-center justify-between gap-4">
-                        <dt>Area (km²)</dt>
-                        <dd className="font-medium text-black">
-                          {districtInfo.area_km2}
-                        </dd>
-                      </div>
-                      <div className="flex items-center justify-between gap-4">
-                        <dt>Density (people/km²)</dt>
-                        <dd className="font-medium text-black">
-                          {districtInfo.density.toLocaleString("en-US")}
-                        </dd>
-                      </div>
-                    </dl>
+                    <div
+                      className={`flex items-center justify-between gap-4 border-t pt-4 text-sm ${
+                        isGreenSpaceActive
+                          ? "border-white/20 text-white"
+                          : "border-white/10 text-slate-300"
+                      }`}
+                    >
+                      <p
+                        className={`${
+                          isGreenSpaceActive ? "font-semibold text-white" : "font-medium"
+                        }`}
+                      >
+                        Green space
+                      </p>
+                      <p>{greenSpaceValue}</p>
+                    </div>
+                    <div className="flex items-center justify-between gap-4 border-t border-white/10 pt-4 text-sm text-slate-300">
+                      <p className="font-medium">Population density</p>
+                      <p>{densityValue}</p>
+                    </div>
                   </div>
                 ) : (
-                  <div className="space-y-2">
+                  <div className="space-y-2 rounded-3xl border border-slate-700/45 bg-slate-900/92 p-5 text-white shadow-[0_12px_36px_rgba(2,6,23,0.28)] backdrop-blur-sm">
                     <h2
                       id="panel-shell-title"
-                      className="text-sm font-medium text-black"
+                      className="text-lg font-medium tracking-tight text-white"
                     >
                       {selectedDistrict.name}
                     </h2>
-                    <p className="text-sm leading-6 text-black/65">
+                    <p className="text-sm leading-6 text-slate-300">
                       District info is not available yet.
                     </p>
                   </div>

@@ -27,10 +27,7 @@ const STATION_DISTRICTS: [number, string[]][] = [
   [10034, ["11000009", "11000010"]],   // Friedrichshagen → Treptow-Köpenick, Marzahn-Hellersdorf
 ];
 
-// Berlin-calibrated thresholds. EPA Good/Moderate/Unhealthy bands (≤50/51-100/>100)
-// place nearly all Berlin readings in the lower two tiers on typical days.
-// Tighter bands give visible map differentiation at normal Berlin AQI levels.
-const AQI_THRESHOLDS = { low: 40, medium: 60 };
+const AQI_THRESHOLDS = { low: 50, medium: 100 };
 
 function aqiToLevel(aqi: number): DistrictLevel {
   if (aqi <= AQI_THRESHOLDS.low) return "lower";

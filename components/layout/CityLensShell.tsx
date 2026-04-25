@@ -35,6 +35,10 @@ type ActiveLayer =
   | "airQuality"
   | "greenSpace";
 
+type LiveAqiData =
+  | { status: "ok"; aqi: number; dominantPollutant: string; stationName: string; updatedAt?: string }
+  | { status: "unavailable" };
+
 type LayerFillColors = Record<ActiveLayer, Record<string, string>>;
 
 const districtInfoList = Object.values(districtInfoById) as DistrictInfo[];
@@ -111,6 +115,12 @@ function getLevelLabel(
   return labels[2];
 }
 
+function formatTime(iso: string): string {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return iso;
+  return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
 const densityThresholds = getThresholds(
   districtInfoList.map((district) => district.density),
 );
@@ -169,30 +179,35 @@ export default function CityLensShell() {
     useState<SelectedDistrict>(null);
   const [renderedDistrict, setRenderedDistrict] =
     useState<SelectedDistrict>(null);
-  const [isPanelMounted, setIsPanelMounted] = useState(false);
+  const [liveAqi, setLiveAqi] = useState<LiveAqiData | null>(null);
   const handleResetLayer = useCallback(() => {
     setActiveLayer(null);
   }, []);
 
+  // Keep renderedDistrict in sync with selectedDistrict during render so we never
+  // call setState synchronously inside an effect. React re-renders immediately
+  // without painting, matching the behaviour of the old synchronous effect branch.
+  if (selectedDistrict !== null && renderedDistrict !== selectedDistrict) {
+    setRenderedDistrict(selectedDistrict);
+  }
+
+  // Only the exit path needs a timer: hold renderedDistrict until the animation
+  // finishes, then clear it so the panel unmounts.
   useEffect(() => {
-    let timeoutId: ReturnType<typeof window.setTimeout> | undefined;
-
-    if (selectedDistrict) {
-      setRenderedDistrict(selectedDistrict);
-      setIsPanelMounted(true);
-    } else if (renderedDistrict) {
-      timeoutId = window.setTimeout(() => {
-        setIsPanelMounted(false);
-        setRenderedDistrict(null);
-      }, PANEL_TRANSITION_MS);
-    }
-
-    return () => {
-      if (timeoutId !== undefined) {
-        window.clearTimeout(timeoutId);
-      }
-    };
+    if (selectedDistrict !== null || renderedDistrict === null) return;
+    const id = window.setTimeout(
+      () => setRenderedDistrict(null),
+      PANEL_TRANSITION_MS,
+    );
+    return () => window.clearTimeout(id);
   }, [selectedDistrict, renderedDistrict]);
+
+  useEffect(() => {
+    fetch("/api/air-quality")
+      .then((res) => res.json())
+      .then((data: LiveAqiData) => setLiveAqi(data))
+      .catch(() => setLiveAqi({ status: "unavailable" }));
+  }, []);
 
   const panelDistrict = selectedDistrict ?? renderedDistrict;
   const activeLayerExplanation = activeLayer ? layerExplanations[activeLayer] : null;
@@ -290,10 +305,26 @@ export default function CityLensShell() {
                 </div>
               </div>
             ) : null}
+            {liveAqi !== null && (
+              <div className="border-t border-white/10 pt-3">
+                {liveAqi.status === "ok" ? (
+                  <p className="text-xs text-slate-400">
+                    Live AQI · {liveAqi.aqi}
+                    {liveAqi.updatedAt
+                      ? ` · Updated ${formatTime(liveAqi.updatedAt)}`
+                      : null}
+                  </p>
+                ) : (
+                  <p className="text-xs text-slate-500">
+                    Live data unavailable
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </section>
 
-        {isPanelMounted ? (
+        {renderedDistrict !== null ? (
           <div className="absolute inset-x-6 bottom-6 md:inset-x-auto md:right-8 md:top-8">
             <div
   className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${

@@ -40,11 +40,11 @@ export default function SidePanel({
       "",
     ) ?? "Not available";
   const airQualityScore =
-    airQualityValue === "Lower NO2"
+    airQualityValue === "Good"
       ? 0
-      : airQualityValue === "Medium NO2"
+      : airQualityValue === "Moderate"
         ? 1
-        : airQualityValue === "Higher NO2"
+        : airQualityValue === "Poor"
           ? 2
           : null;
   const greenSpaceScore =
@@ -79,12 +79,12 @@ export default function SidePanel({
           : "Higher pressure";
   const insightText =
     activeLayer === "airQuality"
-      ? airQualityValue === "Lower NO2"
-        ? "Lower NO2 levels suggest less traffic-related air quality pressure here."
-        : airQualityValue === "Medium NO2"
-          ? "NO2 levels sit in a middle range compared with other districts."
-          : airQualityValue === "Higher NO2"
-            ? "Higher NO2 levels suggest stronger traffic-related air quality pressure in this district."
+      ? airQualityValue === "Good"
+        ? "Good air quality across this district based on current station data."
+        : airQualityValue === "Moderate"
+          ? "Air quality sits in a moderate range compared with other Berlin districts."
+          : airQualityValue === "Poor"
+            ? "Air quality is elevated in this area — this may reflect traffic or local pollution sources."
             : null
       : activeLayer === "greenSpace"
         ? greenSpaceValue === "Higher"

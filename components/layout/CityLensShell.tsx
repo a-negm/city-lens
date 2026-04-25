@@ -76,9 +76,9 @@ const layerExplanations: Record<
   airQuality: {
     title: "Air quality",
     items: [
-      { color: "#fca5a5", label: "Lower AQI" },
-      { color: "#ef4444", label: "Medium AQI" },
-      { color: "#991b1b", label: "Higher AQI" },
+      { color: "#4ade80", label: "Good" },
+      { color: "#fb923c", label: "Moderate" },
+      { color: "#f87171", label: "Poor" },
     ],
   },
   greenSpace: {
@@ -143,9 +143,9 @@ const defaultLayerFillColors = Object.fromEntries(
 );
 
 const LEVEL_COLORS: Record<DistrictLevel, string> = {
-  lower: "#fca5a5",
-  medium: "#ef4444",
-  higher: "#991b1b",
+  lower: "#4ade80",
+  medium: "#fb923c",
+  higher: "#f87171",
 };
 
 const layerFillColors: LayerFillColors = {
@@ -163,9 +163,9 @@ const layerFillColors: LayerFillColors = {
     airQualityEntries.map(([districtId, airQuality]) => [
       districtId,
       getLevelLabel(airQuality.no2, airQualityThresholds, [
-        "#fca5a5",
-        "#ef4444",
-        "#991b1b",
+        "#4ade80",
+        "#fb923c",
+        "#f87171",
       ]),
     ]),
   ),
@@ -276,12 +276,12 @@ export default function CityLensShell() {
     liveDistricts && panelDistrict ? liveDistricts[panelDistrict.id] : null;
 
   const airQualitySummary = liveDistrictLevel
-    ? `Air quality: ${liveDistrictLevel === "lower" ? "Lower AQI" : liveDistrictLevel === "medium" ? "Medium AQI" : "Higher AQI"}`
+    ? `Air quality: ${liveDistrictLevel === "lower" ? "Good" : liveDistrictLevel === "medium" ? "Moderate" : "Poor"}`
     : airQualityInfo
       ? `Air quality: ${getLevelLabel(airQualityInfo.no2, airQualityThresholds, [
-          "Lower AQI",
-          "Medium AQI",
-          "Higher AQI",
+          "Good",
+          "Moderate",
+          "Poor",
         ])}`
       : null;
   const greenSpaceSummary = greenSpaceInfo

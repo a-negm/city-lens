@@ -12,6 +12,9 @@ const DISTRICTS_FILL_LAYER_ID = "berlin-districts-fill";
 const DISTRICTS_LINE_LAYER_ID = "berlin-districts-line";
 const DISTRICTS_DATA_URL = "/data/berlin-districts.geojson";
 const SELECTED_FILL_COLOR = "#cbd5e1";
+const GREEN_SPACES_SOURCE_ID = "berlin-green-spaces";
+const GREEN_SPACES_LAYER_ID = "berlin-green-spaces-fill";
+const GREEN_SPACES_DATA_URL = "/data/berlin-green-spaces.geojson";
 
 type SelectedDistrict = {
   id: string;
@@ -37,9 +40,10 @@ function getFillColorExpression(
   layerFillColors: Record<ActiveLayer, Record<string, string>>,
   selectedDistrictId: string | null,
 ) {
-  const activeFillColors = activeLayer
-    ? layerFillColors[activeLayer]
-    : defaultFillColors;
+  const activeFillColors =
+    activeLayer && activeLayer !== "greenSpace"
+      ? layerFillColors[activeLayer]
+      : defaultFillColors;
   const layerColorExpression: (string | ["get", string])[] = ["match", ["get", "Schluessel_gesamt"]];
 
   Object.entries(activeFillColors).forEach(([districtId, color]) => {
@@ -175,6 +179,21 @@ export default function MapView({
         },
       });
 
+      map.addSource(GREEN_SPACES_SOURCE_ID, {
+        type: "geojson",
+        data: GREEN_SPACES_DATA_URL,
+      });
+
+      // Added after district fill and before district line so parks render
+      // above the neutral district fill but boundary lines stay on top.
+      map.addLayer({
+        id: GREEN_SPACES_LAYER_ID,
+        type: "fill",
+        source: GREEN_SPACES_SOURCE_ID,
+        layout: { visibility: "none" },
+        paint: { "fill-color": "#22c55e", "fill-opacity": 0.4 },
+      });
+
       map.addLayer({
         id: DISTRICTS_LINE_LAYER_ID,
         type: "line",
@@ -234,6 +253,14 @@ export default function MapView({
       "fill-opacity",
       getFillOpacityExpression(selectedDistrictId),
     );
+
+    if (map.getLayer(GREEN_SPACES_LAYER_ID)) {
+      map.setLayoutProperty(
+        GREEN_SPACES_LAYER_ID,
+        "visibility",
+        activeLayer === "greenSpace" ? "visible" : "none",
+      );
+    }
   }, [activeLayer, defaultFillColors, layerFillColors, selectedDistrictId]);
 
   return (

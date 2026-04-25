@@ -237,7 +237,10 @@ export default function CityLensShell() {
   }, []);
 
   const panelDistrict = selectedDistrict ?? renderedDistrict;
-  const activeLayerExplanation = activeLayer ? layerExplanations[activeLayer] : null;
+  const activeLayerExplanation =
+    activeLayer && activeLayer !== "greenSpace"
+      ? layerExplanations[activeLayer]
+      : null;
   const districtInfo = panelDistrict
     ? (districtInfoById[panelDistrict.id as keyof typeof districtInfoById] as
         | DistrictInfo

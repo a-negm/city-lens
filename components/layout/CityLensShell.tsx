@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import LayerControls from "@/components/layout/LayerControls";
 import LayerExplanation from "@/components/layout/LayerExplanation";
@@ -35,8 +35,10 @@ type ActiveLayer =
   | "airQuality"
   | "greenSpace";
 
+type DistrictLevel = "lower" | "medium" | "higher";
+
 type LiveAqiData =
-  | { status: "ok"; aqi: number; dominantPollutant: string; stationName: string; updatedAt?: string }
+  | { status: "ok"; aqi: number; dominantPollutant: string; stationName: string; updatedAt?: string; districts?: Record<string, DistrictLevel> }
   | { status: "unavailable" };
 
 type LayerFillColors = Record<ActiveLayer, Record<string, string>>;
@@ -74,9 +76,9 @@ const layerExplanations: Record<
   airQuality: {
     title: "Air quality",
     items: [
-      { color: "#fca5a5", label: "Lower NO2" },
-      { color: "#ef4444", label: "Medium NO2" },
-      { color: "#991b1b", label: "Higher NO2" },
+      { color: "#fca5a5", label: "Lower AQI" },
+      { color: "#ef4444", label: "Medium AQI" },
+      { color: "#991b1b", label: "Higher AQI" },
     ],
   },
   greenSpace: {
@@ -140,6 +142,12 @@ const defaultLayerFillColors = Object.fromEntries(
   districtInfoEntries.map(([districtId]) => [districtId, "#6f7c6e"]),
 );
 
+const LEVEL_COLORS: Record<DistrictLevel, string> = {
+  lower: "#fca5a5",
+  medium: "#ef4444",
+  higher: "#991b1b",
+};
+
 const layerFillColors: LayerFillColors = {
   density: Object.fromEntries(
     districtInfoEntries.map(([districtId, district]) => [
@@ -180,6 +188,25 @@ export default function CityLensShell() {
   const [renderedDistrict, setRenderedDistrict] =
     useState<SelectedDistrict>(null);
   const [liveAqi, setLiveAqi] = useState<LiveAqiData | null>(null);
+
+  const liveDistricts =
+    liveAqi?.status === "ok" && liveAqi.districts ? liveAqi.districts : null;
+
+  const effectiveLayerFillColors = useMemo<LayerFillColors>(() => {
+    if (!liveDistricts) return layerFillColors;
+    return {
+      ...layerFillColors,
+      airQuality: Object.fromEntries(
+        Object.entries(layerFillColors.airQuality).map(([id, fallback]) => [
+          id,
+          liveDistricts[id] !== undefined
+            ? LEVEL_COLORS[liveDistricts[id]]
+            : fallback,
+        ]),
+      ),
+    };
+  }, [liveDistricts]);
+
   const handleResetLayer = useCallback(() => {
     setActiveLayer(null);
   }, []);
@@ -245,13 +272,18 @@ export default function CityLensShell() {
         ])}`,
       ]
     : null;
-  const airQualitySummary = airQualityInfo
-    ? `Air quality: ${getLevelLabel(airQualityInfo.no2, airQualityThresholds, [
-        "Lower NO2",
-        "Medium NO2",
-        "Higher NO2",
-      ])}`
-    : null;
+  const liveDistrictLevel =
+    liveDistricts && panelDistrict ? liveDistricts[panelDistrict.id] : null;
+
+  const airQualitySummary = liveDistrictLevel
+    ? `Air quality: ${liveDistrictLevel === "lower" ? "Lower AQI" : liveDistrictLevel === "medium" ? "Medium AQI" : "Higher AQI"}`
+    : airQualityInfo
+      ? `Air quality: ${getLevelLabel(airQualityInfo.no2, airQualityThresholds, [
+          "Lower AQI",
+          "Medium AQI",
+          "Higher AQI",
+        ])}`
+      : null;
   const greenSpaceSummary = greenSpaceInfo
     ? `Green space: ${getLevelLabel(
         greenSpaceInfo.green_space,
@@ -268,7 +300,7 @@ export default function CityLensShell() {
         <MapView
           activeLayer={activeLayer}
           defaultFillColors={defaultLayerFillColors}
-          layerFillColors={layerFillColors}
+          layerFillColors={effectiveLayerFillColors}
           onDistrictSelect={setSelectedDistrict}
           onResetLayer={handleResetLayer}
         />

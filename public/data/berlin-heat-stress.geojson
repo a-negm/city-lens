@@ -1,0 +1,2665 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 27.6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.635,
+              52.35
+            ],
+            [
+              13.6875,
+              52.35
+            ],
+            [
+              13.6875,
+              52.381
+            ],
+            [
+              13.635,
+              52.381
+            ],
+            [
+              13.635,
+              52.35
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 26.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.11,
+              52.381
+            ],
+            [
+              13.1625,
+              52.381
+            ],
+            [
+              13.1625,
+              52.412
+            ],
+            [
+              13.11,
+              52.412
+            ],
+            [
+              13.11,
+              52.381
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000007",
+        "district_name": "Tempelhof-Schöneberg",
+        "utci": 29.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.381
+            ],
+            [
+              13.425,
+              52.381
+            ],
+            [
+              13.425,
+              52.412
+            ],
+            [
+              13.3725,
+              52.412
+            ],
+            [
+              13.3725,
+              52.381
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 28.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.53,
+              52.381
+            ],
+            [
+              13.5825,
+              52.381
+            ],
+            [
+              13.5825,
+              52.412
+            ],
+            [
+              13.53,
+              52.412
+            ],
+            [
+              13.53,
+              52.381
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 27.9
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.5825,
+              52.381
+            ],
+            [
+              13.635,
+              52.381
+            ],
+            [
+              13.635,
+              52.412
+            ],
+            [
+              13.5825,
+              52.412
+            ],
+            [
+              13.5825,
+              52.381
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 27.6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.635,
+              52.381
+            ],
+            [
+              13.6875,
+              52.381
+            ],
+            [
+              13.6875,
+              52.412
+            ],
+            [
+              13.635,
+              52.412
+            ],
+            [
+              13.635,
+              52.381
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 26.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.11,
+              52.412
+            ],
+            [
+              13.1625,
+              52.412
+            ],
+            [
+              13.1625,
+              52.443
+            ],
+            [
+              13.11,
+              52.443
+            ],
+            [
+              13.11,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 26.1
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.1625,
+              52.412
+            ],
+            [
+              13.215,
+              52.412
+            ],
+            [
+              13.215,
+              52.443
+            ],
+            [
+              13.1625,
+              52.443
+            ],
+            [
+              13.1625,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 26.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.215,
+              52.412
+            ],
+            [
+              13.2675,
+              52.412
+            ],
+            [
+              13.2675,
+              52.443
+            ],
+            [
+              13.215,
+              52.443
+            ],
+            [
+              13.215,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 28.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.2675,
+              52.412
+            ],
+            [
+              13.32,
+              52.412
+            ],
+            [
+              13.32,
+              52.443
+            ],
+            [
+              13.2675,
+              52.443
+            ],
+            [
+              13.2675,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 30.1
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.32,
+              52.412
+            ],
+            [
+              13.3725,
+              52.412
+            ],
+            [
+              13.3725,
+              52.443
+            ],
+            [
+              13.32,
+              52.443
+            ],
+            [
+              13.32,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000007",
+        "district_name": "Tempelhof-Schöneberg",
+        "utci": 31.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.412
+            ],
+            [
+              13.425,
+              52.412
+            ],
+            [
+              13.425,
+              52.443
+            ],
+            [
+              13.3725,
+              52.443
+            ],
+            [
+              13.3725,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000008",
+        "district_name": "Neukölln",
+        "utci": 31.5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.425,
+              52.412
+            ],
+            [
+              13.4775,
+              52.412
+            ],
+            [
+              13.4775,
+              52.443
+            ],
+            [
+              13.425,
+              52.443
+            ],
+            [
+              13.425,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000008",
+        "district_name": "Neukölln",
+        "utci": 30.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.4775,
+              52.412
+            ],
+            [
+              13.53,
+              52.412
+            ],
+            [
+              13.53,
+              52.443
+            ],
+            [
+              13.4775,
+              52.443
+            ],
+            [
+              13.4775,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 29.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.53,
+              52.412
+            ],
+            [
+              13.5825,
+              52.412
+            ],
+            [
+              13.5825,
+              52.443
+            ],
+            [
+              13.53,
+              52.443
+            ],
+            [
+              13.53,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 28.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.5825,
+              52.412
+            ],
+            [
+              13.635,
+              52.412
+            ],
+            [
+              13.635,
+              52.443
+            ],
+            [
+              13.5825,
+              52.443
+            ],
+            [
+              13.5825,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 27.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.635,
+              52.412
+            ],
+            [
+              13.6875,
+              52.412
+            ],
+            [
+              13.6875,
+              52.443
+            ],
+            [
+              13.635,
+              52.443
+            ],
+            [
+              13.635,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 27.5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.6875,
+              52.412
+            ],
+            [
+              13.74,
+              52.412
+            ],
+            [
+              13.74,
+              52.443
+            ],
+            [
+              13.6875,
+              52.443
+            ],
+            [
+              13.6875,
+              52.412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000005",
+        "district_name": "Spandau",
+        "utci": 26
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.11,
+              52.443
+            ],
+            [
+              13.1625,
+              52.443
+            ],
+            [
+              13.1625,
+              52.474
+            ],
+            [
+              13.11,
+              52.474
+            ],
+            [
+              13.11,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 25.9
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.1625,
+              52.443
+            ],
+            [
+              13.215,
+              52.443
+            ],
+            [
+              13.215,
+              52.474
+            ],
+            [
+              13.1625,
+              52.474
+            ],
+            [
+              13.1625,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 27
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.215,
+              52.443
+            ],
+            [
+              13.2675,
+              52.443
+            ],
+            [
+              13.2675,
+              52.474
+            ],
+            [
+              13.215,
+              52.474
+            ],
+            [
+              13.215,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 29.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.2675,
+              52.443
+            ],
+            [
+              13.32,
+              52.443
+            ],
+            [
+              13.32,
+              52.474
+            ],
+            [
+              13.2675,
+              52.474
+            ],
+            [
+              13.2675,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000006",
+        "district_name": "Steglitz-Zehlendorf",
+        "utci": 31.9
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.32,
+              52.443
+            ],
+            [
+              13.3725,
+              52.443
+            ],
+            [
+              13.3725,
+              52.474
+            ],
+            [
+              13.32,
+              52.474
+            ],
+            [
+              13.32,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000007",
+        "district_name": "Tempelhof-Schöneberg",
+        "utci": 33.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.443
+            ],
+            [
+              13.425,
+              52.443
+            ],
+            [
+              13.425,
+              52.474
+            ],
+            [
+              13.3725,
+              52.474
+            ],
+            [
+              13.3725,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000008",
+        "district_name": "Neukölln",
+        "utci": 34.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.425,
+              52.443
+            ],
+            [
+              13.4775,
+              52.443
+            ],
+            [
+              13.4775,
+              52.474
+            ],
+            [
+              13.425,
+              52.474
+            ],
+            [
+              13.425,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 32.9
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.4775,
+              52.443
+            ],
+            [
+              13.53,
+              52.443
+            ],
+            [
+              13.53,
+              52.474
+            ],
+            [
+              13.4775,
+              52.474
+            ],
+            [
+              13.4775,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 30.6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.53,
+              52.443
+            ],
+            [
+              13.5825,
+              52.443
+            ],
+            [
+              13.5825,
+              52.474
+            ],
+            [
+              13.53,
+              52.474
+            ],
+            [
+              13.53,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 28.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.5825,
+              52.443
+            ],
+            [
+              13.635,
+              52.443
+            ],
+            [
+              13.635,
+              52.474
+            ],
+            [
+              13.5825,
+              52.474
+            ],
+            [
+              13.5825,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 27.6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.635,
+              52.443
+            ],
+            [
+              13.6875,
+              52.443
+            ],
+            [
+              13.6875,
+              52.474
+            ],
+            [
+              13.635,
+              52.474
+            ],
+            [
+              13.635,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 27.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.6875,
+              52.443
+            ],
+            [
+              13.74,
+              52.443
+            ],
+            [
+              13.74,
+              52.474
+            ],
+            [
+              13.6875,
+              52.474
+            ],
+            [
+              13.6875,
+              52.443
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000004",
+        "district_name": "Charlottenburg-Wilmersdorf",
+        "utci": 26.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.1625,
+              52.474
+            ],
+            [
+              13.215,
+              52.474
+            ],
+            [
+              13.215,
+              52.505
+            ],
+            [
+              13.1625,
+              52.505
+            ],
+            [
+              13.1625,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000004",
+        "district_name": "Charlottenburg-Wilmersdorf",
+        "utci": 27.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.215,
+              52.474
+            ],
+            [
+              13.2675,
+              52.474
+            ],
+            [
+              13.2675,
+              52.505
+            ],
+            [
+              13.215,
+              52.505
+            ],
+            [
+              13.215,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000004",
+        "district_name": "Charlottenburg-Wilmersdorf",
+        "utci": 30.5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.2675,
+              52.474
+            ],
+            [
+              13.32,
+              52.474
+            ],
+            [
+              13.32,
+              52.505
+            ],
+            [
+              13.2675,
+              52.505
+            ],
+            [
+              13.2675,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000007",
+        "district_name": "Tempelhof-Schöneberg",
+        "utci": 33.5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.32,
+              52.474
+            ],
+            [
+              13.3725,
+              52.474
+            ],
+            [
+              13.3725,
+              52.505
+            ],
+            [
+              13.32,
+              52.505
+            ],
+            [
+              13.32,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000002",
+        "district_name": "Friedrichshain-Kreuzberg",
+        "utci": 35.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.474
+            ],
+            [
+              13.425,
+              52.474
+            ],
+            [
+              13.425,
+              52.505
+            ],
+            [
+              13.3725,
+              52.505
+            ],
+            [
+              13.3725,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000009",
+        "district_name": "Treptow-Köpenick",
+        "utci": 36.1
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.425,
+              52.474
+            ],
+            [
+              13.4775,
+              52.474
+            ],
+            [
+              13.4775,
+              52.505
+            ],
+            [
+              13.425,
+              52.505
+            ],
+            [
+              13.425,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000011",
+        "district_name": "Lichtenberg",
+        "utci": 34.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.4775,
+              52.474
+            ],
+            [
+              13.53,
+              52.474
+            ],
+            [
+              13.53,
+              52.505
+            ],
+            [
+              13.4775,
+              52.505
+            ],
+            [
+              13.4775,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000010",
+        "district_name": "Marzahn-Hellersdorf",
+        "utci": 31.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.53,
+              52.474
+            ],
+            [
+              13.5825,
+              52.474
+            ],
+            [
+              13.5825,
+              52.505
+            ],
+            [
+              13.53,
+              52.505
+            ],
+            [
+              13.53,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000010",
+        "district_name": "Marzahn-Hellersdorf",
+        "utci": 28.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.5825,
+              52.474
+            ],
+            [
+              13.635,
+              52.474
+            ],
+            [
+              13.635,
+              52.505
+            ],
+            [
+              13.5825,
+              52.505
+            ],
+            [
+              13.5825,
+              52.474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000005",
+        "district_name": "Spandau",
+        "utci": 26.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.11,
+              52.505
+            ],
+            [
+              13.1625,
+              52.505
+            ],
+            [
+              13.1625,
+              52.536
+            ],
+            [
+              13.11,
+              52.536
+            ],
+            [
+              13.11,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000005",
+        "district_name": "Spandau",
+        "utci": 27.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.1625,
+              52.505
+            ],
+            [
+              13.215,
+              52.505
+            ],
+            [
+              13.215,
+              52.536
+            ],
+            [
+              13.1625,
+              52.536
+            ],
+            [
+              13.1625,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000004",
+        "district_name": "Charlottenburg-Wilmersdorf",
+        "utci": 28.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.215,
+              52.505
+            ],
+            [
+              13.2675,
+              52.505
+            ],
+            [
+              13.2675,
+              52.536
+            ],
+            [
+              13.215,
+              52.536
+            ],
+            [
+              13.215,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000004",
+        "district_name": "Charlottenburg-Wilmersdorf",
+        "utci": 31.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.2675,
+              52.505
+            ],
+            [
+              13.32,
+              52.505
+            ],
+            [
+              13.32,
+              52.536
+            ],
+            [
+              13.2675,
+              52.536
+            ],
+            [
+              13.2675,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000001",
+        "district_name": "Mitte",
+        "utci": 34.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.32,
+              52.505
+            ],
+            [
+              13.3725,
+              52.505
+            ],
+            [
+              13.3725,
+              52.536
+            ],
+            [
+              13.32,
+              52.536
+            ],
+            [
+              13.32,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000001",
+        "district_name": "Mitte",
+        "utci": 36.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.505
+            ],
+            [
+              13.425,
+              52.505
+            ],
+            [
+              13.425,
+              52.536
+            ],
+            [
+              13.3725,
+              52.536
+            ],
+            [
+              13.3725,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000002",
+        "district_name": "Friedrichshain-Kreuzberg",
+        "utci": 36.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.425,
+              52.505
+            ],
+            [
+              13.4775,
+              52.505
+            ],
+            [
+              13.4775,
+              52.536
+            ],
+            [
+              13.425,
+              52.536
+            ],
+            [
+              13.425,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000011",
+        "district_name": "Lichtenberg",
+        "utci": 34.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.4775,
+              52.505
+            ],
+            [
+              13.53,
+              52.505
+            ],
+            [
+              13.53,
+              52.536
+            ],
+            [
+              13.4775,
+              52.536
+            ],
+            [
+              13.4775,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000010",
+        "district_name": "Marzahn-Hellersdorf",
+        "utci": 31.1
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.53,
+              52.505
+            ],
+            [
+              13.5825,
+              52.505
+            ],
+            [
+              13.5825,
+              52.536
+            ],
+            [
+              13.53,
+              52.536
+            ],
+            [
+              13.53,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000010",
+        "district_name": "Marzahn-Hellersdorf",
+        "utci": 28.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.5825,
+              52.505
+            ],
+            [
+              13.635,
+              52.505
+            ],
+            [
+              13.635,
+              52.536
+            ],
+            [
+              13.5825,
+              52.536
+            ],
+            [
+              13.5825,
+              52.505
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000005",
+        "district_name": "Spandau",
+        "utci": 27.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.11,
+              52.536
+            ],
+            [
+              13.1625,
+              52.536
+            ],
+            [
+              13.1625,
+              52.567
+            ],
+            [
+              13.11,
+              52.567
+            ],
+            [
+              13.11,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000005",
+        "district_name": "Spandau",
+        "utci": 27.9
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.1625,
+              52.536
+            ],
+            [
+              13.215,
+              52.536
+            ],
+            [
+              13.215,
+              52.567
+            ],
+            [
+              13.1625,
+              52.567
+            ],
+            [
+              13.1625,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000005",
+        "district_name": "Spandau",
+        "utci": 29.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.215,
+              52.536
+            ],
+            [
+              13.2675,
+              52.536
+            ],
+            [
+              13.2675,
+              52.567
+            ],
+            [
+              13.215,
+              52.567
+            ],
+            [
+              13.215,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000012",
+        "district_name": "Reinickendorf",
+        "utci": 31.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.2675,
+              52.536
+            ],
+            [
+              13.32,
+              52.536
+            ],
+            [
+              13.32,
+              52.567
+            ],
+            [
+              13.2675,
+              52.567
+            ],
+            [
+              13.2675,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000001",
+        "district_name": "Mitte",
+        "utci": 33.6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.32,
+              52.536
+            ],
+            [
+              13.3725,
+              52.536
+            ],
+            [
+              13.3725,
+              52.567
+            ],
+            [
+              13.32,
+              52.567
+            ],
+            [
+              13.32,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 34.9
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.536
+            ],
+            [
+              13.425,
+              52.536
+            ],
+            [
+              13.425,
+              52.567
+            ],
+            [
+              13.3725,
+              52.567
+            ],
+            [
+              13.3725,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 34.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.425,
+              52.536
+            ],
+            [
+              13.4775,
+              52.536
+            ],
+            [
+              13.4775,
+              52.567
+            ],
+            [
+              13.425,
+              52.567
+            ],
+            [
+              13.425,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000011",
+        "district_name": "Lichtenberg",
+        "utci": 32.9
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.4775,
+              52.536
+            ],
+            [
+              13.53,
+              52.536
+            ],
+            [
+              13.53,
+              52.567
+            ],
+            [
+              13.4775,
+              52.567
+            ],
+            [
+              13.4775,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000010",
+        "district_name": "Marzahn-Hellersdorf",
+        "utci": 30.1
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.53,
+              52.536
+            ],
+            [
+              13.5825,
+              52.536
+            ],
+            [
+              13.5825,
+              52.567
+            ],
+            [
+              13.53,
+              52.567
+            ],
+            [
+              13.53,
+              52.536
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000005",
+        "district_name": "Spandau",
+        "utci": 27.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.11,
+              52.567
+            ],
+            [
+              13.1625,
+              52.567
+            ],
+            [
+              13.1625,
+              52.598
+            ],
+            [
+              13.11,
+              52.598
+            ],
+            [
+              13.11,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000005",
+        "district_name": "Spandau",
+        "utci": 28.1
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.1625,
+              52.567
+            ],
+            [
+              13.215,
+              52.567
+            ],
+            [
+              13.215,
+              52.598
+            ],
+            [
+              13.1625,
+              52.598
+            ],
+            [
+              13.1625,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000012",
+        "district_name": "Reinickendorf",
+        "utci": 29.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.215,
+              52.567
+            ],
+            [
+              13.2675,
+              52.567
+            ],
+            [
+              13.2675,
+              52.598
+            ],
+            [
+              13.215,
+              52.598
+            ],
+            [
+              13.215,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000012",
+        "district_name": "Reinickendorf",
+        "utci": 30.6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.2675,
+              52.567
+            ],
+            [
+              13.32,
+              52.567
+            ],
+            [
+              13.32,
+              52.598
+            ],
+            [
+              13.2675,
+              52.598
+            ],
+            [
+              13.2675,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000012",
+        "district_name": "Reinickendorf",
+        "utci": 32
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.32,
+              52.567
+            ],
+            [
+              13.3725,
+              52.567
+            ],
+            [
+              13.3725,
+              52.598
+            ],
+            [
+              13.32,
+              52.598
+            ],
+            [
+              13.32,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 32.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.567
+            ],
+            [
+              13.425,
+              52.567
+            ],
+            [
+              13.425,
+              52.598
+            ],
+            [
+              13.3725,
+              52.598
+            ],
+            [
+              13.3725,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 32.5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.425,
+              52.567
+            ],
+            [
+              13.4775,
+              52.567
+            ],
+            [
+              13.4775,
+              52.598
+            ],
+            [
+              13.425,
+              52.598
+            ],
+            [
+              13.425,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000011",
+        "district_name": "Lichtenberg",
+        "utci": 31.1
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.4775,
+              52.567
+            ],
+            [
+              13.53,
+              52.567
+            ],
+            [
+              13.53,
+              52.598
+            ],
+            [
+              13.4775,
+              52.598
+            ],
+            [
+              13.4775,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000011",
+        "district_name": "Lichtenberg",
+        "utci": 29
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.53,
+              52.567
+            ],
+            [
+              13.5825,
+              52.567
+            ],
+            [
+              13.5825,
+              52.598
+            ],
+            [
+              13.53,
+              52.598
+            ],
+            [
+              13.53,
+              52.567
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000012",
+        "district_name": "Reinickendorf",
+        "utci": 28.6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.215,
+              52.598
+            ],
+            [
+              13.2675,
+              52.598
+            ],
+            [
+              13.2675,
+              52.629
+            ],
+            [
+              13.215,
+              52.629
+            ],
+            [
+              13.215,
+              52.598
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000012",
+        "district_name": "Reinickendorf",
+        "utci": 29.5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.2675,
+              52.598
+            ],
+            [
+              13.32,
+              52.598
+            ],
+            [
+              13.32,
+              52.629
+            ],
+            [
+              13.2675,
+              52.629
+            ],
+            [
+              13.2675,
+              52.598
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000012",
+        "district_name": "Reinickendorf",
+        "utci": 30.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.32,
+              52.598
+            ],
+            [
+              13.3725,
+              52.598
+            ],
+            [
+              13.3725,
+              52.629
+            ],
+            [
+              13.32,
+              52.629
+            ],
+            [
+              13.32,
+              52.598
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 30.7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.598
+            ],
+            [
+              13.425,
+              52.598
+            ],
+            [
+              13.425,
+              52.629
+            ],
+            [
+              13.3725,
+              52.629
+            ],
+            [
+              13.3725,
+              52.598
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 30.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.425,
+              52.598
+            ],
+            [
+              13.4775,
+              52.598
+            ],
+            [
+              13.4775,
+              52.629
+            ],
+            [
+              13.425,
+              52.629
+            ],
+            [
+              13.425,
+              52.598
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000012",
+        "district_name": "Reinickendorf",
+        "utci": 28.5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.2675,
+              52.629
+            ],
+            [
+              13.32,
+              52.629
+            ],
+            [
+              13.32,
+              52.66
+            ],
+            [
+              13.2675,
+              52.66
+            ],
+            [
+              13.2675,
+              52.629
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 29.1
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.3725,
+              52.629
+            ],
+            [
+              13.425,
+              52.629
+            ],
+            [
+              13.425,
+              52.66
+            ],
+            [
+              13.3725,
+              52.66
+            ],
+            [
+              13.3725,
+              52.629
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 28.9
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.425,
+              52.629
+            ],
+            [
+              13.4775,
+              52.629
+            ],
+            [
+              13.4775,
+              52.66
+            ],
+            [
+              13.425,
+              52.66
+            ],
+            [
+              13.425,
+              52.629
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "11000003",
+        "district_name": "Pankow",
+        "utci": 28.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.4775,
+              52.629
+            ],
+            [
+              13.53,
+              52.629
+            ],
+            [
+              13.53,
+              52.66
+            ],
+            [
+              13.4775,
+              52.66
+            ],
+            [
+              13.4775,
+              52.629
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

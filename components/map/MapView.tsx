@@ -15,6 +15,9 @@ const SELECTED_FILL_COLOR = "#cbd5e1";
 const GREEN_SPACES_SOURCE_ID = "berlin-green-spaces";
 const GREEN_SPACES_LAYER_ID = "berlin-green-spaces-fill";
 const GREEN_SPACES_DATA_URL = "/data/berlin-green-spaces.geojson";
+const HEAT_STRESS_SOURCE_ID = "berlin-heat-stress";
+const HEAT_STRESS_LAYER_ID = "berlin-heat-stress-fill";
+const HEAT_STRESS_DATA_URL = "/data/berlin-heat-stress.geojson";
 
 type SelectedDistrict = {
   id: string;
@@ -24,7 +27,8 @@ type SelectedDistrict = {
 type ActiveLayer =
   | "density"
   | "airQuality"
-  | "greenSpace";
+  | "greenSpace"
+  | "heatStress";
 
 type MapViewProps = {
   activeLayer: ActiveLayer | null;
@@ -39,12 +43,15 @@ function getFillColorExpression(
   defaultFillColors: Record<string, string>,
   layerFillColors: Record<ActiveLayer, Record<string, string>>,
   selectedDistrictId: string | null,
-) {
+): maplibregl.ExpressionSpecification {
   const activeFillColors =
-    activeLayer && activeLayer !== "greenSpace"
+    activeLayer && activeLayer !== "greenSpace" && activeLayer !== "heatStress"
       ? layerFillColors[activeLayer]
       : defaultFillColors;
-  const layerColorExpression: (string | ["get", string])[] = ["match", ["get", "Schluessel_gesamt"]];
+  const layerColorExpression: unknown[] = [
+    "match",
+    ["get", "Schluessel_gesamt"],
+  ];
 
   Object.entries(activeFillColors).forEach(([districtId, color]) => {
     layerColorExpression.push(districtId, color);
@@ -57,16 +64,37 @@ function getFillColorExpression(
     ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
     SELECTED_FILL_COLOR,
     layerColorExpression,
-  ] as const;
+  ] as unknown as maplibregl.ExpressionSpecification;
 }
 
-function getFillOpacityExpression(selectedDistrictId: string | null) {
+function getDistrictFillOpacityExpression(
+  activeLayer: ActiveLayer | null,
+  selectedDistrictId: string | null,
+): maplibregl.ExpressionSpecification {
   return [
     "case",
     ["==", ["get", "Schluessel_gesamt"], selectedDistrictId ?? ""],
     0.75,
-    0.45,
-  ] as const;
+    activeLayer === "heatStress" ? 0.08 : 0.45,
+  ] as unknown as maplibregl.ExpressionSpecification;
+}
+
+function getHeatColorExpression(): maplibregl.ExpressionSpecification {
+  return [
+    "interpolate",
+    ["linear"],
+    ["get", "utci"],
+    27,
+    "#FDE68A",
+    30,
+    "#F59E0B",
+    33,
+    "#EA580C",
+    36,
+    "#DC2626",
+    39,
+    "#7F1D1D",
+  ];
 }
 
 export default function MapView({
@@ -81,6 +109,9 @@ export default function MapView({
   const districtClickHandledRef = useRef(false);
   const onDistrictSelectRef = useRef(onDistrictSelect);
   const onResetLayerRef = useRef(onResetLayer);
+  const activeLayerRef = useRef(activeLayer);
+  const defaultFillColorsRef = useRef(defaultFillColors);
+  const layerFillColorsRef = useRef(layerFillColors);
   const selectedDistrictIdRef = useRef<string | null>(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState<string | null>(
     null,
@@ -93,6 +124,18 @@ export default function MapView({
   useEffect(() => {
     onResetLayerRef.current = onResetLayer;
   }, [onResetLayer]);
+
+  useEffect(() => {
+    activeLayerRef.current = activeLayer;
+  }, [activeLayer]);
+
+  useEffect(() => {
+    defaultFillColorsRef.current = defaultFillColors;
+  }, [defaultFillColors]);
+
+  useEffect(() => {
+    layerFillColorsRef.current = layerFillColors;
+  }, [layerFillColors]);
 
   useEffect(() => {
     selectedDistrictIdRef.current = selectedDistrictId;
@@ -159,6 +202,22 @@ export default function MapView({
         return;
       }
 
+      map.addSource(HEAT_STRESS_SOURCE_ID, {
+        type: "geojson",
+        data: HEAT_STRESS_DATA_URL,
+      });
+
+      map.addLayer({
+        id: HEAT_STRESS_LAYER_ID,
+        type: "fill",
+        source: HEAT_STRESS_SOURCE_ID,
+        layout: { visibility: "none" },
+        paint: {
+          "fill-color": getHeatColorExpression(),
+          "fill-opacity": 0.38,
+        },
+      });
+
       map.addSource(DISTRICTS_SOURCE_ID, {
         type: "geojson",
         data: DISTRICTS_DATA_URL,
@@ -170,12 +229,15 @@ export default function MapView({
         source: DISTRICTS_SOURCE_ID,
         paint: {
           "fill-color": getFillColorExpression(
-            activeLayer,
-            defaultFillColors,
-            layerFillColors,
-            selectedDistrictId,
+            activeLayerRef.current,
+            defaultFillColorsRef.current,
+            layerFillColorsRef.current,
+            selectedDistrictIdRef.current,
           ),
-          "fill-opacity": getFillOpacityExpression(selectedDistrictId),
+          "fill-opacity": getDistrictFillOpacityExpression(
+            activeLayerRef.current,
+            selectedDistrictIdRef.current,
+          ),
         },
       });
 
@@ -251,8 +313,16 @@ export default function MapView({
     map.setPaintProperty(
       DISTRICTS_FILL_LAYER_ID,
       "fill-opacity",
-      getFillOpacityExpression(selectedDistrictId),
+      getDistrictFillOpacityExpression(activeLayer, selectedDistrictId),
     );
+
+    if (map.getLayer(HEAT_STRESS_LAYER_ID)) {
+      map.setLayoutProperty(
+        HEAT_STRESS_LAYER_ID,
+        "visibility",
+        activeLayer === "heatStress" ? "visible" : "none",
+      );
+    }
 
     if (map.getLayer(GREEN_SPACES_LAYER_ID)) {
       map.setLayoutProperty(

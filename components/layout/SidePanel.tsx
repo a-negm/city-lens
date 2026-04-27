@@ -16,9 +16,11 @@ type SidePanelProps = {
   contextSummary: string[] | null;
   airQualitySummary: string | null;
   greenSpaceSummary: string | null;
-  activeLayer: "density" | "airQuality" | "greenSpace" | null;
+  heatStressSummary: string | null;
+  activeLayer: "density" | "airQuality" | "greenSpace" | "heatStress" | null;
   isAirQualityActive: boolean;
   isGreenSpaceActive: boolean;
+  isHeatStressActive: boolean;
 };
 
 export default function SidePanel({
@@ -27,13 +29,17 @@ export default function SidePanel({
   contextSummary,
   airQualitySummary,
   greenSpaceSummary,
+  heatStressSummary,
   activeLayer,
   isAirQualityActive,
   isGreenSpaceActive,
+  isHeatStressActive,
 }: SidePanelProps) {
   const airQualityValue = airQualitySummary?.replace(/^Air quality:\s*/, "") ?? "Not available";
   const greenSpaceValue =
     greenSpaceSummary?.replace(/^Green space:\s*/, "") ?? "Not available";
+  const heatStressValue =
+    heatStressSummary?.replace(/^Heat stress:\s*/, "") ?? "Not available";
   const densityValue =
     contextSummary?.find((label) => label.startsWith("Density:"))?.replace(
       /^Density:\s*/,
@@ -94,6 +100,14 @@ export default function SidePanel({
             : greenSpaceValue === "Lower"
               ? "Lower green space availability means less environmental relief compared with greener districts."
               : null
+        : activeLayer === "heatStress"
+          ? heatStressValue === "Lower"
+            ? "Lower heat stress suggests cooler outdoor conditions relative to hotter parts of the city."
+            : heatStressValue === "Moderate"
+              ? "Heat stress sits in a middle range compared with other Berlin districts."
+              : heatStressValue === "Elevated"
+                ? "Elevated heat stress indicates warmer outdoor conditions across this district."
+                : null
         : activeLayer === "density"
           ? densityValue === "Low"
             ? "Lower density suggests a less intense urban pattern."
@@ -160,6 +174,22 @@ export default function SidePanel({
                         Air quality
                       </p>
                       <p>{airQualityValue}</p>
+                    </div>
+                    <div
+                      className={`flex items-center justify-between gap-4 border-t pt-4 text-sm ${
+                        isHeatStressActive
+                          ? "border-white/20 text-white"
+                          : "border-white/10 text-slate-300"
+                      }`}
+                    >
+                      <p
+                        className={`${
+                          isHeatStressActive ? "font-semibold text-white" : "font-medium"
+                        }`}
+                      >
+                        Heat stress
+                      </p>
+                      <p>{heatStressValue}</p>
                     </div>
                     <div
                       className={`flex items-center justify-between gap-4 border-t pt-4 text-sm ${

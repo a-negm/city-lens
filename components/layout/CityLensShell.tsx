@@ -9,6 +9,7 @@ import MapView from "@/components/map/MapView";
 import airQualityById from "@/public/data/air-quality.json";
 import districtInfoById from "@/public/data/district-info.json";
 import greenSpaceById from "@/public/data/green-space.json";
+import heatStressByDistrict from "@/public/data/heat-stress-by-district.json";
 
 type SelectedDistrict = {
   id: string;
@@ -33,9 +34,15 @@ type GreenSpaceInfo = {
 type ActiveLayer =
   | "density"
   | "airQuality"
-  | "greenSpace";
+  | "greenSpace"
+  | "heatStress";
 
 type DistrictLevel = "lower" | "medium" | "higher";
+
+type HeatStressInfo = {
+  heat_stress: DistrictLevel;
+  utci_mean?: number;
+};
 
 type LiveAqiData =
   | { status: "ok"; aqi: number; dominantPollutant: string; stationName: string; updatedAt?: string; districts?: Record<string, DistrictLevel> }
@@ -56,10 +63,15 @@ const greenSpaceEntries = Object.entries(greenSpaceById) as [
   string,
   GreenSpaceInfo,
 ][];
+const heatStressEntries = Object.entries(heatStressByDistrict) as [
+  string,
+  HeatStressInfo,
+][];
 const layerOptions: { value: ActiveLayer; label: string }[] = [
   { value: "density", label: "Density" },
   { value: "airQuality", label: "Air quality" },
   { value: "greenSpace", label: "Green space" },
+  { value: "heatStress", label: "Heat stress" },
 ];
 const layerExplanations: Record<
   ActiveLayer,
@@ -87,6 +99,16 @@ const layerExplanations: Record<
       { color: "#86efac", label: "Lower" },
       { color: "#9fc78f", label: "Medium" },
       { color: "#166534", label: "Higher" },
+    ],
+  },
+  heatStress: {
+    title: "Heat stress (UTCI)",
+    items: [
+      { color: "#FDE68A", label: "Lower" },
+      { color: "#F59E0B", label: "Moderate" },
+      { color: "#EA580C", label: "Elevated" },
+      { color: "#DC2626", label: "High" },
+      { color: "#7F1D1D", label: "Very high" },
     ],
   },
 };
@@ -121,6 +143,18 @@ function formatTime(iso: string): string {
   const d = new Date(iso);
   if (isNaN(d.getTime())) return iso;
   return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function getDistrictLevelLabel(value: DistrictLevel) {
+  if (value === "lower") {
+    return "Lower";
+  }
+
+  if (value === "medium") {
+    return "Moderate";
+  }
+
+  return "Elevated";
 }
 
 const densityThresholds = getThresholds(
@@ -177,6 +211,16 @@ const layerFillColors: LayerFillColors = {
         "#9fc78f",
         "#166534",
       ]),
+    ]),
+  ),
+  heatStress: Object.fromEntries(
+    heatStressEntries.map(([districtId, heatStress]) => [
+      districtId,
+      heatStress.heat_stress === "lower"
+        ? "#FDE68A"
+        : heatStress.heat_stress === "medium"
+          ? "#EA580C"
+          : "#7F1D1D",
     ]),
   ),
 };
@@ -256,6 +300,11 @@ export default function CityLensShell() {
         | GreenSpaceInfo
         | undefined)
     : undefined;
+  const heatStressInfo = panelDistrict
+    ? (heatStressByDistrict[
+        panelDistrict.id as keyof typeof heatStressByDistrict
+      ] as HeatStressInfo | undefined)
+    : undefined;
   const contextSummary = districtInfo
     ? [
         `Density: ${getLevelLabel(districtInfo.density, densityThresholds, [
@@ -294,8 +343,12 @@ export default function CityLensShell() {
         ["Lower", "Medium", "Higher"],
       )}`
     : null;
+  const heatStressSummary = heatStressInfo
+    ? `Heat stress: ${getDistrictLevelLabel(heatStressInfo.heat_stress)}`
+    : null;
   const isAirQualityActive = activeLayer === "airQuality";
   const isGreenSpaceActive = activeLayer === "greenSpace";
+  const isHeatStressActive = activeLayer === "heatStress";
 
   return (
     <main className="relative min-h-screen overflow-hidden">
@@ -312,7 +365,7 @@ export default function CityLensShell() {
       <div className="pointer-events-none absolute inset-0 p-6 md:p-8">
         <section
           aria-labelledby="map-shell-title"
-          className="pointer-events-auto absolute left-6 top-6 flex w-[24rem] max-w-[calc(100vw-3rem)] flex-col gap-3 rounded-3xl border border-slate-700/45 bg-slate-900/88 p-4 text-white shadow-[0_12px_36px_rgba(2,6,23,0.28)] backdrop-blur-sm md:left-8 md:top-8"
+          className="pointer-events-auto absolute left-6 top-6 flex w-[30rem] max-w-[calc(100vw-3rem)] flex-col gap-3 rounded-3xl border border-slate-700/45 bg-slate-900/88 p-4 text-white shadow-[0_12px_36px_rgba(2,6,23,0.28)] backdrop-blur-sm md:left-8 md:top-8"
         >
           <p
             id="map-shell-title"
@@ -374,9 +427,11 @@ export default function CityLensShell() {
                 contextSummary={contextSummary}
                 airQualitySummary={airQualitySummary}
                 greenSpaceSummary={greenSpaceSummary}
+                heatStressSummary={heatStressSummary}
                 activeLayer={activeLayer}
                 isAirQualityActive={isAirQualityActive}
                 isGreenSpaceActive={isGreenSpaceActive}
+                isHeatStressActive={isHeatStressActive}
               />
             </div>
           </div>

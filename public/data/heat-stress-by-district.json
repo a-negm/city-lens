@@ -1,0 +1,50 @@
+{
+  "11000001": {
+    "heat_stress": "higher",
+    "utci_mean": 34.7
+  },
+  "11000002": {
+    "heat_stress": "higher",
+    "utci_mean": 36
+  },
+  "11000003": {
+    "heat_stress": "medium",
+    "utci_mean": 31.4
+  },
+  "11000004": {
+    "heat_stress": "lower",
+    "utci_mean": 28.9
+  },
+  "11000005": {
+    "heat_stress": "lower",
+    "utci_mean": 27.6
+  },
+  "11000006": {
+    "heat_stress": "lower",
+    "utci_mean": 27.9
+  },
+  "11000007": {
+    "heat_stress": "medium",
+    "utci_mean": 31.9
+  },
+  "11000008": {
+    "heat_stress": "medium",
+    "utci_mean": 32.1
+  },
+  "11000009": {
+    "heat_stress": "lower",
+    "utci_mean": 29.1
+  },
+  "11000010": {
+    "heat_stress": "medium",
+    "utci_mean": 29.9
+  },
+  "11000011": {
+    "heat_stress": "medium",
+    "utci_mean": 32.3
+  },
+  "11000012": {
+    "heat_stress": "medium",
+    "utci_mean": 30
+  }
+}

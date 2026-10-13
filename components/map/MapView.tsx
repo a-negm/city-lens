@@ -28,7 +28,8 @@ type ActiveLayer =
   | "density"
   | "airQuality"
   | "greenSpace"
-  | "heatStress";
+  | "heatStress"
+  | "socialVulnerability";
 
 type MapViewProps = {
   activeLayer: ActiveLayer | null;

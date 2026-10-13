@@ -17,10 +17,18 @@ type SidePanelProps = {
   airQualitySummary: string | null;
   greenSpaceSummary: string | null;
   heatStressSummary: string | null;
-  activeLayer: "density" | "airQuality" | "greenSpace" | "heatStress" | null;
+  socialVulnerabilitySummary: string | null;
+  activeLayer:
+    | "density"
+    | "airQuality"
+    | "greenSpace"
+    | "heatStress"
+    | "socialVulnerability"
+    | null;
   isAirQualityActive: boolean;
   isGreenSpaceActive: boolean;
   isHeatStressActive: boolean;
+  isSocialVulnerabilityActive: boolean;
 };
 
 export default function SidePanel({
@@ -30,16 +38,21 @@ export default function SidePanel({
   airQualitySummary,
   greenSpaceSummary,
   heatStressSummary,
+  socialVulnerabilitySummary,
   activeLayer,
   isAirQualityActive,
   isGreenSpaceActive,
   isHeatStressActive,
+  isSocialVulnerabilityActive,
 }: SidePanelProps) {
   const airQualityValue = airQualitySummary?.replace(/^Air quality:\s*/, "") ?? "Not available";
   const greenSpaceValue =
     greenSpaceSummary?.replace(/^Green space:\s*/, "") ?? "Not available";
   const heatStressValue =
     heatStressSummary?.replace(/^Heat stress:\s*/, "") ?? "Not available";
+  const socialVulnerabilityValue =
+    socialVulnerabilitySummary?.replace(/^Social vulnerability:\s*/, "") ??
+    "Not available";
   const densityValue =
     contextSummary?.find((label) => label.startsWith("Density:"))?.replace(
       /^Density:\s*/,
@@ -108,6 +121,14 @@ export default function SidePanel({
               : heatStressValue === "Elevated"
                 ? "Elevated heat stress indicates warmer outdoor conditions across this district."
                 : null
+        : activeLayer === "socialVulnerability"
+          ? socialVulnerabilityValue === "Lower"
+            ? "Lower social vulnerability suggests comparatively stronger social conditions in this district."
+            : socialVulnerabilityValue === "Moderate"
+              ? "Social vulnerability sits in a middle range compared with other Berlin districts."
+              : socialVulnerabilityValue === "Higher"
+                ? "Higher social vulnerability indicates comparatively greater structural disadvantage in this district."
+                : null
         : activeLayer === "density"
           ? densityValue === "Low"
             ? "Lower density suggests a less intense urban pattern."
@@ -174,6 +195,24 @@ export default function SidePanel({
                         Air quality
                       </p>
                       <p>{airQualityValue}</p>
+                    </div>
+                    <div
+                      className={`flex items-center justify-between gap-4 border-t pt-4 text-sm ${
+                        isSocialVulnerabilityActive
+                          ? "border-white/20 text-white"
+                          : "border-white/10 text-slate-300"
+                      }`}
+                    >
+                      <p
+                        className={`${
+                          isSocialVulnerabilityActive
+                            ? "font-semibold text-white"
+                            : "font-medium"
+                        }`}
+                      >
+                        Social vulnerability
+                      </p>
+                      <p>{socialVulnerabilityValue}</p>
                     </div>
                     <div
                       className={`flex items-center justify-between gap-4 border-t pt-4 text-sm ${

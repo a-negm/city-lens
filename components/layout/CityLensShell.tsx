@@ -10,6 +10,7 @@ import airQualityById from "@/public/data/air-quality.json";
 import districtInfoById from "@/public/data/district-info.json";
 import greenSpaceById from "@/public/data/green-space.json";
 import heatStressByDistrict from "@/public/data/heat-stress-by-district.json";
+import socialVulnerabilityByDistrict from "@/public/data/social-vulnerability.json";
 
 type SelectedDistrict = {
   id: string;
@@ -35,13 +36,19 @@ type ActiveLayer =
   | "density"
   | "airQuality"
   | "greenSpace"
-  | "heatStress";
+  | "heatStress"
+  | "socialVulnerability";
 
 type DistrictLevel = "lower" | "medium" | "higher";
 
 type HeatStressInfo = {
   heat_stress: DistrictLevel;
   utci_mean?: number;
+};
+
+type SocialVulnerabilityInfo = {
+  social_vulnerability: DistrictLevel;
+  esix?: number;
 };
 
 type LiveAqiData =
@@ -67,11 +74,15 @@ const heatStressEntries = Object.entries(heatStressByDistrict) as [
   string,
   HeatStressInfo,
 ][];
+const socialVulnerabilityEntries = Object.entries(
+  socialVulnerabilityByDistrict,
+) as [string, SocialVulnerabilityInfo][];
 const layerOptions: { value: ActiveLayer; label: string }[] = [
   { value: "density", label: "Density" },
   { value: "airQuality", label: "Air quality" },
   { value: "greenSpace", label: "Green space" },
   { value: "heatStress", label: "Heat stress" },
+  { value: "socialVulnerability", label: "Social vulnerability" },
 ];
 const layerExplanations: Record<
   ActiveLayer,
@@ -109,6 +120,14 @@ const layerExplanations: Record<
       { color: "#EA580C", label: "Elevated" },
       { color: "#DC2626", label: "High" },
       { color: "#7F1D1D", label: "Very high" },
+    ],
+  },
+  socialVulnerability: {
+    title: "Social vulnerability",
+    items: [
+      { color: "#7DD3FC", label: "Lower" },
+      { color: "#38BDF8", label: "Moderate" },
+      { color: "#1D4ED8", label: "Higher" },
     ],
   },
 };
@@ -223,6 +242,16 @@ const layerFillColors: LayerFillColors = {
           : "#7F1D1D",
     ]),
   ),
+  socialVulnerability: Object.fromEntries(
+    socialVulnerabilityEntries.map(([districtId, socialVulnerability]) => [
+      districtId,
+      socialVulnerability.social_vulnerability === "lower"
+        ? "#7DD3FC"
+        : socialVulnerability.social_vulnerability === "medium"
+          ? "#38BDF8"
+          : "#1D4ED8",
+    ]),
+  ),
 };
 
 export default function CityLensShell() {
@@ -305,6 +334,11 @@ export default function CityLensShell() {
         panelDistrict.id as keyof typeof heatStressByDistrict
       ] as HeatStressInfo | undefined)
     : undefined;
+  const socialVulnerabilityInfo = panelDistrict
+    ? (socialVulnerabilityByDistrict[
+        panelDistrict.id as keyof typeof socialVulnerabilityByDistrict
+      ] as SocialVulnerabilityInfo | undefined)
+    : undefined;
   const contextSummary = districtInfo
     ? [
         `Density: ${getLevelLabel(districtInfo.density, densityThresholds, [
@@ -346,9 +380,19 @@ export default function CityLensShell() {
   const heatStressSummary = heatStressInfo
     ? `Heat stress: ${getDistrictLevelLabel(heatStressInfo.heat_stress)}`
     : null;
+  const socialVulnerabilitySummary = socialVulnerabilityInfo
+    ? `Social vulnerability: ${
+        socialVulnerabilityInfo.social_vulnerability === "lower"
+          ? "Lower"
+          : socialVulnerabilityInfo.social_vulnerability === "medium"
+            ? "Moderate"
+            : "Higher"
+      }`
+    : null;
   const isAirQualityActive = activeLayer === "airQuality";
   const isGreenSpaceActive = activeLayer === "greenSpace";
   const isHeatStressActive = activeLayer === "heatStress";
+  const isSocialVulnerabilityActive = activeLayer === "socialVulnerability";
 
   return (
     <main className="relative min-h-screen overflow-hidden">
@@ -428,10 +472,12 @@ export default function CityLensShell() {
                 airQualitySummary={airQualitySummary}
                 greenSpaceSummary={greenSpaceSummary}
                 heatStressSummary={heatStressSummary}
+                socialVulnerabilitySummary={socialVulnerabilitySummary}
                 activeLayer={activeLayer}
                 isAirQualityActive={isAirQualityActive}
                 isGreenSpaceActive={isGreenSpaceActive}
                 isHeatStressActive={isHeatStressActive}
+                isSocialVulnerabilityActive={isSocialVulnerabilityActive}
               />
             </div>
           </div>

@@ -2,7 +2,8 @@ type ActiveLayer =
   | "density"
   | "airQuality"
   | "greenSpace"
-  | "heatStress";
+  | "heatStress"
+  | "socialVulnerability";
 
 type LayerOption = {
   value: ActiveLayer;
